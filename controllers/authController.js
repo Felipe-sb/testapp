@@ -8,40 +8,109 @@ exports.register = async (req, res) => {
     try {
         const { username, email, pass, confirmPass } = req.body;
         const id = uuidv4();
-        if (pass === confirmPass) {
-            console.log('las contraseñas son iguales');
-            const hashPass = await bcrypt.hash(pass, 8);
-            con.query(
-                `select email from users where email='${email}'`,
-                (err, result) => {
-                    if (err) throw err;
-                    if (result.length === 0) {
-                        console.log('Se puede crear al usuario');
-                        con.query(
-                            `INSERT INTO users VALUES ('${id}','${username}','${email}','${hashPass}')`,
-                            async (err, result) => {
-                                if (err) throw err;
-                                try {
-                                    console.log(result);
-                                    await transporter.sendMail({
-                                        from: '"payTooWin" <paytoowin.noreply@gmail.com>',
-                                        to: `${email}`,
-                                        subject: 'account created',
-                                        text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
-                                    });
-                                    res.redirect('/login')
-                                } catch (error) {
-                                    console.log(error);
-                                }
-                            }
-                        );
-                    } else {
-                        console.log('El usuario ya existe');
-                    }
-                }
-            );
+        if (!username || !email || !pass || !confirmPass) {
+            res.render('register', {
+                alert: true,
+                alertTitle: 'Oooops...',
+                alertMessage: 'No puede existir un campo vacio',
+                alertIcon: 'error',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'register',
+            });
         } else {
-            console.log('las contraseñas son diferentes');
+            if (pass.length < 6) {
+                res.render('register', {
+                    alert: true,
+                    alertTitle: 'Oooops...',
+                    alertMessage: 'Tu contraseña no puede tener menos de 6 caracteres',
+                    alertIcon: 'error',
+                    showConfirmButton: true,
+                    timer: false,
+                    ruta: 'register',
+                });
+            } else {
+                if (pass === confirmPass) {
+                    console.log('las contraseñas son iguales');
+                    const hashPass = await bcrypt.hash(pass, 8);
+                    con.query(
+                        `select email from users where email='${email}'`,
+                        (err, result) => {
+                            if (err) throw err;
+                            if (result.length === 0) {
+                                console.log('Se puede crear al usuario');
+                                con.query(
+                                    `INSERT INTO users VALUES ('${id}','${username}','${email}','${hashPass}')`,
+                                    async (err, result) => {
+                                        if (err) throw err;
+                                        try {
+                                            console.log(result);
+                                            await transporter.sendMail({
+                                                from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                                                to: `${email}`,
+                                                subject: 'account created',
+                                                text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
+                                            });
+                                            res.render('register', {
+                                                alert: true,
+                                                alertTitle:
+                                                    'Operacion Exitosa!!!',
+                                                alertMessage: `Usuario creado con exito`,
+                                                alertIcon: 'success',
+                                                showConfirmButton: true,
+                                                timer: false,
+                                                ruta: 'login',
+                                            });
+                                        } catch (error) {
+                                            console.log(error);
+                                        }
+                                    }
+                                );
+                            } else {
+                                console.log('El usuario ya existe');
+                                res.render('register', {
+                                    alert: true,
+                                    alertTitle: 'Oooops...',
+                                    alertMessage: `El usuario con el correo ${email} ya existe`,
+                                    alertIcon: 'error',
+                                    showConfirmButton: true,
+                                    timer: false,
+                                    ruta: 'register',
+                                });
+                            }
+                        }
+                    );
+                } else {
+                    console.log('las contraseñas son diferentes');
+                    res.render('register', {
+                        alert: true,
+                        alertTitle: 'Oooops...',
+                        alertMessage: 'Las contraseñas deben ser iguales',
+                        alertIcon: 'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: 'register',
+                    });
+                }
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+exports.login = async (req, res) => {
+    try {
+        const { email, pass } = req.body;
+        if (!email || !pass) {
+            res.render('login', {
+                alert: true,
+                alertTitle: 'Oooops...',
+                alertMessage: 'No puede existir un campo vacio',
+                alertIcon: 'error',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'login',
+            });
         }
     } catch (error) {
         console.log(error);

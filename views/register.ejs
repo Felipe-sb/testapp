@@ -81,5 +81,19 @@
                 <p>Si ya tienes una cuenta haz <a href="/login">click aqui</a></p>
             </form>
         </main>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <% if (alert) { %>
+            <script>
+                Swal.fire({
+                    title:'<%=alertTitle%>',
+                    text:'<%=alertMessage%>',
+                    icon:'<%=alertIcon%>',
+                    showConfirmButton:<%=showConfirmButton%>,
+                    timer:<%=timer%>,
+                }).then(()=>{
+                    window.location='/<%=ruta%>'
+                })
+            </script>
+        <% } %>
     </body>
 </html>
