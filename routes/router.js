@@ -2,9 +2,8 @@ const express = require('express');
 const con = require('../db/db')
 const authController = require('../controllers/authController')
 const router = express.Router();
-router.get('/', (req, res) => {
-    res.render('index');
-});
+router.get('/',authController.loggedIn);
+router.get('/logout',authController.logout)
 router.get('/login', (req, res) => {
     res.render('login',{alert:false});
 });

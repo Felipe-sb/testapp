@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const con = require('../db/db');
-const { promisify } = require('util');
 const { v4: uuidv4 } = require('uuid');
 const transporter = require('../helpers/transporter');
 exports.register = async (req, res) => {
@@ -23,7 +21,8 @@ exports.register = async (req, res) => {
                 res.render('register', {
                     alert: true,
                     alertTitle: 'Oooops...',
-                    alertMessage: 'Tu contraseña no puede tener menos de 6 caracteres',
+                    alertMessage:
+                        'Tu contraseña no puede tener menos de 6 caracteres',
                     alertIcon: 'error',
                     showConfirmButton: true,
                     timer: false,
@@ -111,8 +110,90 @@ exports.login = async (req, res) => {
                 timer: false,
                 ruta: 'login',
             });
+        } else {
+            con.query(
+                `select * from users where email='${email}'`,
+                async (err, result) => {
+                    if (err) throw err;
+                    console.log(result);
+                    if (result.length !== 0) {
+                        const [data] = result;
+                        const { password } = data;
+                        console.log(pass, password);
+                        console.log(await bcrypt.compare(pass, password));
+                        if (await bcrypt.compare(pass, password)) {
+                            req.session.loggedin=true;
+                            req.session.username = data.username;
+                            req.session.email = data.email;
+                            req.session.idUser = data.id;
+                            console.log(req.session);
+                            await transporter.sendMail({
+                                from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                                to: `${data.email}`,
+                                subject: 'Nuevo inicio de sesion',
+                                text: `${data.username} detectamos que iniciaste sesion avisanos si no fuistes tu`,
+                            });
+                            res.render('login', {
+                                alert: true,
+                                alertTitle: 'Inicio de sesion exitoso',
+                                alertMessage: '',
+                                alertIcon: 'success',
+                                showConfirmButton: true,
+                                timer: false,
+                                ruta: '',
+                            });
+                        } else {
+                            //TODO crear alerta
+                            res.render('login', {
+                                alert: true,
+                                alertTitle: 'Oooops...',
+                                alertMessage: 'Contraseña invalida',
+                                alertIcon: 'error',
+                                showConfirmButton: true,
+                                timer: false,
+                                ruta: 'login',
+                            });
+                        }
+                    } else {
+                        //TODO crear alerta
+                        res.render('login', {
+                            alert: true,
+                            alertTitle: 'Oooops...',
+                            alertMessage:
+                                'El correo ingresado no existe en nuestra base de datos',
+                            alertIcon: 'error',
+                            showConfirmButton: true,
+                            timer: false,
+                            ruta: 'login',
+                        });
+                    }
+                }
+            );
         }
     } catch (error) {
         console.log(error);
     }
 };
+exports.loggedIn= (req,res)=>{
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('index',{
+            login:true,
+            id:req.session.idUser,
+            username:req.session.username,
+            email:req.session.email
+        })
+    }else{
+        res.render('index',{
+            login:false,
+        })
+    }
+}
+exports.logout=(req,res)=>{
+    req.session.loggedin=false
+    req.session.username=null
+    req.session.idUser=null
+    req.session.email=null
+    console.log(req.session);
+    res.render('logout');
+}
