@@ -24,6 +24,7 @@
         <link href="css/signin.css" rel="stylesheet" />
     </head>
     <body class="text-center">
+        <% if (!login) { %>
         <main class="form-signin">
             <form id="loginForm" action="/login" method="POST">
                 <img
@@ -61,24 +62,29 @@
                 <a href="/register" type="button">Registrarse</a>
                 <hr />
                 <p>
-                    Si olvidate tu contraseña has
+                    Si olvidaste tu contraseña has
                     <a href="/forgot-pass">click aqui</a>
                 </p>
             </form>
         </main>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <% if (alert) { %>
-            <script>
-                Swal.fire({
-                    title:'<%=alertTitle%>',
-                    text:'<%=alertMessage%>',
-                    icon:'<%=alertIcon%>',
-                    showConfirmButton:<%=showConfirmButton%>,
-                    timer:<%=timer%>,
-                }).then(()=>{
-                    window.location='/<%=ruta%>'
-                })
-            </script>
-        <% } %>
+        <script>
+            Swal.fire({
+                title:'<%=alertTitle%>',
+                text:'<%=alertMessage%>',
+                icon:'<%=alertIcon%>',
+                showConfirmButton:<%=showConfirmButton%>,
+                timer:<%=timer%>,
+            }).then(()=>{
+                window.location='/<%=ruta%>'
+            })
+        </script>
+        <% } %> 
+        <% }else{ %>
+        <script>
+            window.location = '/';
+        </script>
+        <%}%>
     </body>
 </html>

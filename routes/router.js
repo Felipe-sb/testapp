@@ -2,17 +2,54 @@ const express = require('express');
 const con = require('../db/db')
 const authController = require('../controllers/authController')
 const router = express.Router();
-router.get('/',authController.loggedIn);
-router.get('/logout',authController.logout)
+router.get('/',(req,res)=>{
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('index',{
+            login:true,
+            id:req.session.idUser,
+            username:req.session.username,
+            email:req.session.email
+        })
+    }else{
+        res.render('index',{
+            login:false,
+        })
+    }
+});
+router.get('/logout',(req,res)=>{
+    req.session.loggedin=false
+    req.session.username=null
+    req.session.idUser=null
+    req.session.email=null
+    console.log(req.session);
+    res.render('logout');
+})
 router.get('/login', (req, res) => {
-    res.render('login',{alert:false});
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('login',{alert:false,login:true})
+    }else{
+        res.render('login',{alert:false,login:false});
+    }
 });
 router.get('/register', (req, res) => {
-    res.render('register',{alert:false});
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('register',{alert:false,login:true})
+    }else{
+        res.render('register',{alert:false,login:false});
+    }
 });
 router.get('/forgot-pass',(req,res)=>{
-    res.render('forgot-pass')
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('forgot-pass',{alert:false,login:true})
+    }else{
+        res.render('forgot-pass',{alert:false,login:false});
+    }
 })
 router.post('/register',authController.register)
 router.post('/login',authController.login)
+router.post('/forgot-pass',authController.sendNewPassToEmail)
 module.exports = router;

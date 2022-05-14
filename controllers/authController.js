@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const con = require('../db/db');
 const { v4: uuidv4 } = require('uuid');
 const transporter = require('../helpers/transporter');
+const generateRandomPass = require('../helpers/generateRandomPass');
 exports.register = async (req, res) => {
     try {
         const { username, email, pass, confirmPass } = req.body;
@@ -15,6 +16,7 @@ exports.register = async (req, res) => {
                 showConfirmButton: true,
                 timer: false,
                 ruta: 'register',
+                login:req.session.loggedin
             });
         } else {
             if (pass.length < 6) {
@@ -27,6 +29,7 @@ exports.register = async (req, res) => {
                     showConfirmButton: true,
                     timer: false,
                     ruta: 'register',
+                    login:req.session.loggedin
                 });
             } else {
                 if (pass === confirmPass) {
@@ -59,6 +62,7 @@ exports.register = async (req, res) => {
                                                 showConfirmButton: true,
                                                 timer: false,
                                                 ruta: 'login',
+                                                login:req.session.loggedin
                                             });
                                         } catch (error) {
                                             console.log(error);
@@ -75,6 +79,7 @@ exports.register = async (req, res) => {
                                     showConfirmButton: true,
                                     timer: false,
                                     ruta: 'register',
+                                    login:req.session.loggedin
                                 });
                             }
                         }
@@ -89,6 +94,7 @@ exports.register = async (req, res) => {
                         showConfirmButton: true,
                         timer: false,
                         ruta: 'register',
+                        login:req.session.loggedin
                     });
                 }
             }
@@ -109,6 +115,7 @@ exports.login = async (req, res) => {
                 showConfirmButton: true,
                 timer: false,
                 ruta: 'login',
+                login:req.session.loggedin
             });
         } else {
             con.query(
@@ -141,6 +148,7 @@ exports.login = async (req, res) => {
                                 showConfirmButton: true,
                                 timer: false,
                                 ruta: '',
+                                login:req.session.loggedin
                             });
                         } else {
                             //TODO crear alerta
@@ -152,6 +160,7 @@ exports.login = async (req, res) => {
                                 showConfirmButton: true,
                                 timer: false,
                                 ruta: 'login',
+                                login:req.session.loggedin
                             });
                         }
                     } else {
@@ -165,6 +174,7 @@ exports.login = async (req, res) => {
                             showConfirmButton: true,
                             timer: false,
                             ruta: 'login',
+                            login:req.session.loggedin
                         });
                     }
                 }
@@ -174,26 +184,59 @@ exports.login = async (req, res) => {
         console.log(error);
     }
 };
-exports.loggedIn= (req,res)=>{
-    console.log(req.session);
-    if (req.session.loggedin) {
-        res.render('index',{
-            login:true,
-            id:req.session.idUser,
-            username:req.session.username,
-            email:req.session.email
-        })
+exports.sendNewPassToEmail = async (req,res)=>{
+    const {email} = req.body;
+    console.log(email);
+    if (!email) {
+        res.render('forgot-pass', {
+            alert: true,
+            alertTitle: 'Oooops...',
+            alertMessage: 'No puede existir un campo vacio',
+            alertIcon: 'error',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'login',
+            login:req.session.loggedin
+        });
     }else{
-        res.render('index',{
-            login:false,
+        con.query(`SELECT * FROM users WHERE email='${email}'`,async (err,result)=>{
+            if (result.length !== 0) {
+                const newRandomPass = generateRandomPass();
+                console.log(newRandomPass);
+                const username = result[0].username
+                const hashPass = await bcrypt.hash(newRandomPass,8)
+                con.query(`UPDATE users SET password='${hashPass}' WHERE email='${email}'`,async(err,result)=>{
+                    if(err) throw err;
+                    console.log(result);
+                    await transporter.sendMail({
+                        from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                        to: `${email}`,
+                        subject: 'Cambiar contraseña',
+                        text: `${username} tu nueva contraseña es ${newRandomPass}`,
+                    });
+                    res.render('forgot-pass', {
+                        alert: true,
+                        alertTitle: 'Operacion Exitosa',
+                        alertMessage: 'se ha enviado tu nueva contraseña a tu correo',
+                        alertIcon: 'success',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: 'forgot-pass',
+                        login:req.session.loggedin
+                    });
+                })
+            }else{
+                res.render('forgot-pass', {
+                    alert: true,
+                    alertTitle: 'Oooops...',
+                    alertMessage: 'El correo ingresado no existe en nuestra base de datos',
+                    alertIcon: 'error',
+                    showConfirmButton: true,
+                    timer: false,
+                    ruta: 'forgot-pass',
+                    login:req.session.loggedin
+                });
+            }
         })
     }
-}
-exports.logout=(req,res)=>{
-    req.session.loggedin=false
-    req.session.username=null
-    req.session.idUser=null
-    req.session.email=null
-    console.log(req.session);
-    res.render('logout');
 }
