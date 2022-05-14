@@ -7,5 +7,8 @@ let transporter = nodemailer.createTransport({
         user: 'paytoowin.noreply@gmail.com', // generated ethereal user
         pass: 'kpxigrsiarzrqpwo', // generated ethereal password
     },
+    tls: {
+        rejectUnauthorized: false
+    }
 });
-module.exports=transporter;
+module.exports = transporter;
