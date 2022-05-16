@@ -184,7 +184,7 @@ exports.login = async (req, res) => {
         console.log(error);
     }
 };
-exports.sendNewPassToEmail = async (req,res)=>{
+exports.sendNewPassToEmail = async (req,res,)=>{
     const {email} = req.body;
     console.log(email);
     if (!email) {

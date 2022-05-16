@@ -1,6 +1,8 @@
 const express = require('express');
 const con = require('../db/db')
-const authController = require('../controllers/authController')
+const authController = require('../controllers/authController');
+const { checkEmptyEmail } = require('../middlewares/emptyField');
+const { isEmail } = require('../middlewares/isEmail');
 const router = express.Router();
 router.get('/',(req,res)=>{
     console.log(req.session);
@@ -50,6 +52,6 @@ router.get('/forgot-pass',(req,res)=>{
     }
 })
 router.post('/register',authController.register)
-router.post('/login',authController.login)
+router.post('/login',checkEmptyEmail,isEmail,authController.login)
 router.post('/forgot-pass',authController.sendNewPassToEmail)
 module.exports = router;
