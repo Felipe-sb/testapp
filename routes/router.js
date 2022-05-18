@@ -54,6 +54,6 @@ router.get('/forgot-pass',(req,res)=>{
     }
 })
 router.post('/register',checkEmptyUsername,checkEmptyEmail,checkEmptyPass,checkEmptyConfirmPass,checkEmailDB,registerDB)
-router.post('/login')
-router.post('/forgot-pass')
+router.post('/login',authController.login)
+router.post('/forgot-pass',authController.sendNewPassToEmail)
 module.exports = router;
