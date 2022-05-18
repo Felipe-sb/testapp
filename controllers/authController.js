@@ -3,6 +3,7 @@ const con = require('../db/db');
 const { v4: uuidv4 } = require('uuid');
 const transporter = require('../helpers/transporter');
 const generateRandomPass = require('../helpers/generateRandomPass');
+const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 exports.register = async (req, res) => {
     try {
         const { username, email, pass, confirmPass } = req.body;
@@ -19,7 +20,7 @@ exports.register = async (req, res) => {
                 login:req.session.loggedin
             });
         } else {
-            if (pass.length < 6) {
+            if (pass.length < 6 || !passRegex.test(pass)) {
                 res.render('register', {
                     alert: true,
                     alertTitle: 'Oooops...',

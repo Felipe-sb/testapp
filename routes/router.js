@@ -1,9 +1,11 @@
 const express = require('express');
 const con = require('../db/db')
 const authController = require('../controllers/authController');
-const { checkEmptyEmail } = require('../middlewares/emptyField');
-const { isEmail } = require('../middlewares/isEmail');
+const {checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass} = require('../middlewares/emptyField');
+const { checkEmailDB } = require('../middlewares/checkEmailDB');
+const { registerDB } = require('../db/registerDB');
 const router = express.Router();
+
 router.get('/',(req,res)=>{
     console.log(req.session);
     if (req.session.loggedin) {
@@ -51,7 +53,7 @@ router.get('/forgot-pass',(req,res)=>{
         res.render('forgot-pass',{alert:false,login:false});
     }
 })
-router.post('/register',authController.register)
-router.post('/login',checkEmptyEmail,isEmail,authController.login)
-router.post('/forgot-pass',authController.sendNewPassToEmail)
+router.post('/register',checkEmptyUsername,checkEmptyEmail,checkEmptyPass,checkEmptyConfirmPass,checkEmailDB,registerDB)
+router.post('/login')
+router.post('/forgot-pass')
 module.exports = router;
