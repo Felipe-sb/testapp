@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
                 login:req.session.loggedin
             });
         } else {
-            if (pass.length < 6) {
+            if (pass.length < 6 || !passRegex.test(pass)) {
                 res.render('register', {
                     alert: true,
                     alertTitle: 'Oooops...',
