@@ -8,3 +8,13 @@ CREATE TABLE `paytoowin`.`users` (
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
+
+CREATE TABLE `paytoowin`.`product` (
+  `sku` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  `partialDelete` TINYINT NOT NULL,
+  PRIMARY KEY (`sku`)
+  ) ENGINE = InnoDB;
+
