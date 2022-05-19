@@ -25,9 +25,8 @@
     </head>
 
     <body class="text-center">
-        <% if (!login) { %>
         <main class="form-signin">
-            <form id="loginForm" action="/login" method="POST">
+            <form id="loginForm" action="/contact" method="POST">
                 <img
                     class="mb-4"
                     src="img/logo.svg"
@@ -35,8 +34,7 @@
                     width="80"
                     height="67"
                 />
-                <h1 class="h3 mb-3 fw-normal">Iniciar Sesion</h1>
-
+                <h1 class="h3 mb-3 fw-normal">Contacto</h1>
                 <div class="form-floating">
                     <input
                         type="email"
@@ -49,23 +47,27 @@
                 </div>
                 <div class="form-floating">
                     <input
-                        type="password"
+                        type="text"
                         class="form-control"
-                        id="floatingPassword"
-                        name="pass"
-                        placeholder="Password"
+                        id="floatingInput"
+                        name="subject"
+                        placeholder="Asunto"
                     />
-                    <label for="floatingPassword">Contraseña</label>
+                    <label for="floatingInput">Asunto</label>
+                </div>
+                <div class="form-floating">
+                    <textarea
+                        class="form-control"
+                        id="floatingInput"
+                        name="text"
+                        placeholder="Ingresa aqui tu consulta"
+                    >
+                    </textarea>
+                    <label for="floatingPassword">Asunto</label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">
-                    Iniciar Sesion
+                    Enviar
                 </button>
-                <a href="/register" type="button">Registrarse</a>
-                <hr />
-                <p>
-                    Si olvidaste tu contraseña has
-                    <a href="/forgot-pass">click aqui</a>
-                </p>
             </form>
         </main>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,10 +83,6 @@
                 window.location = '/<%=ruta%>'
             })
         </script>
-        <% } %> <% }else{ %>
-        <script>
-            window.location = '/';
-        </script>
-        <%}%>
+        <% } %>
     </body>
 </html>

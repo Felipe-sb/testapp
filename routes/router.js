@@ -4,6 +4,7 @@ const authController = require('../controllers/authController');
 const {checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass} = require('../middlewares/emptyField');
 const { checkEmailDB } = require('../middlewares/checkEmailDB');
 const { registerDB } = require('../db/registerDB');
+const { contact } = require('../controllers/contactController');
 const router = express.Router();
 
 router.get('/',(req,res)=>{
@@ -53,7 +54,12 @@ router.get('/forgot-pass',(req,res)=>{
         res.render('forgot-pass',{alert:false,login:false});
     }
 })
+router.get('/contact',(req,res)=>{
+    res.render('contact',{alert:false})
+})
+//POSTS
 router.post('/register',checkEmptyUsername,checkEmptyEmail,checkEmptyPass,checkEmptyConfirmPass,checkEmailDB,registerDB)
 router.post('/login',authController.login)
 router.post('/forgot-pass',authController.sendNewPassToEmail)
+router.post('/contact',contact)
 module.exports = router;
