@@ -1,5 +1,5 @@
-const con = require("../db/db")
-const transporter = require('../helpers/transporter');
+const con = require("../../db/db")
+const transporter = require('../../helpers/transporter');
 
 exports.isEmail=(req,res,next)=>{
     const {email} = req.body

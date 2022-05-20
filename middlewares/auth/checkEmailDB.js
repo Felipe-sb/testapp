@@ -1,4 +1,4 @@
-const con = require('../db/db');
+const con = require('../../db/db');
 
 exports.checkEmailDB = (req, res,next) => {
     const { email } = req.body;

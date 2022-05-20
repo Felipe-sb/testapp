@@ -1,10 +1,13 @@
 const express = require('express');
 const con = require('../db/db')
 const authController = require('../controllers/authController');
-const {checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass} = require('../middlewares/emptyField');
-const { checkEmailDB } = require('../middlewares/checkEmailDB');
+const {checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass} = require('../middlewares/auth/emptyField');
+const { checkEmailDB } = require('../middlewares/auth/checkEmailDB');
 const { registerDB } = require('../db/registerDB');
 const { contact } = require('../controllers/contactController');
+const { findProductById, addProduct } = require('../controllers/productController');
+const { checkEmptySku, checkEmptyName, checkEmptyDescription, checkEmptyPrice } = require('../middlewares/products/emptyField');
+const { checkProductOnDb } = require('../middlewares/products/checkProductOnDB');
 const router = express.Router();
 
 router.get('/',(req,res)=>{
@@ -57,9 +60,12 @@ router.get('/forgot-pass',(req,res)=>{
 router.get('/contact',(req,res)=>{
     res.render('contact',{alert:false})
 })
+router.get('/products/:sku',findProductById)
+
 //POSTS
 router.post('/register',checkEmptyUsername,checkEmptyEmail,checkEmptyPass,checkEmptyConfirmPass,checkEmailDB,registerDB)
 router.post('/login',authController.login)
 router.post('/forgot-pass',authController.sendNewPassToEmail)
 router.post('/contact',contact)
+router.post('/admin/addProduct',checkEmptySku,checkProductOnDb,checkEmptyName,checkEmptyDescription,checkEmptyPrice,addProduct)
 module.exports = router;

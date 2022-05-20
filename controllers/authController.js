@@ -151,7 +151,6 @@ exports.login = async (req, res) => {
                                 login:req.session.loggedin
                             });
                         } else {
-                            //TODO crear alerta
                             res.render('login', {
                                 alert: true,
                                 alertTitle: 'Oooops...',
@@ -164,7 +163,6 @@ exports.login = async (req, res) => {
                             });
                         }
                     } else {
-                        //TODO crear alerta
                         res.render('login', {
                             alert: true,
                             alertTitle: 'Oooops...',
