@@ -37,8 +37,15 @@ exports.addProduct = (req, res) => {
         (error, result) => {
             if (error) throw error;
             res.render('addProduct', {
-                msg: 'producto agregado',
-            });
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'EXITO',
+                alertMessage: 'Producto Agregado Exitosamente',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'admin/add-product',
+            })
         }
     );
 };

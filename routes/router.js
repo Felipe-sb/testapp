@@ -8,6 +8,7 @@ const { contact } = require('../controllers/contactController');
 const { findProductById, addProduct, getProducts } = require('../controllers/productController');
 const { checkEmptySku, checkEmptyName, checkEmptyDescription, checkEmptyPrice } = require('../middlewares/products/emptyField');
 const { checkProductOnDb } = require('../middlewares/products/checkProductOnDB');
+const { isSkus, isPrice } = require('../middlewares/products/isSku');
 const router = express.Router();
 
 router.get('/',(req,res)=>{
@@ -68,5 +69,5 @@ router.post('/register',checkEmptyUsername,checkEmptyEmail,checkEmptyPass,checkE
 router.post('/login',authController.login)
 router.post('/forgot-pass',authController.sendNewPassToEmail)
 router.post('/contact',contact)
-router.post('/admin/addProduct',checkEmptySku,checkProductOnDb,checkEmptyName,checkEmptyDescription,checkEmptyPrice,addProduct)
+router.post('/admin/add-product',checkEmptySku,checkProductOnDb,checkEmptyName,checkEmptyDescription,checkEmptyPrice,isSkus,isPrice,addProduct)
 module.exports = router;

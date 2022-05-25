@@ -9,7 +9,7 @@ CREATE TABLE `paytoowin`.`users` (
     `password` VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
 
-CREATE TABLE `paytoowin`.`product` (
+CREATE TABLE `paytoowin`.`products` (
   `sku` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NOT NULL,

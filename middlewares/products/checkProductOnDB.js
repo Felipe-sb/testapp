@@ -5,7 +5,14 @@ exports.checkProductOnDb = (req, res, next) => {
         if (error) throw error;
         if (result.length !== 0) {
             res.render('addProduct', {
-                msg: 'el producto ya existe',
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'Ooooooops',
+                alertMessage: 'El Producto Ya Existe',
+                alertIcon: 'alert',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'admin/add-product',
             });
         } else {
             next();
