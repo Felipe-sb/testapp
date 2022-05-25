@@ -1,4 +1,15 @@
 const con = require('../db/db');
+exports.getProducts = (req, res) => {
+    con.query('SELECT * FROM products', (error, result) => {
+        if (error) throw error;
+        console.log(result)
+        if (result.length !== 0) {
+            res.render('products',{
+                data:result
+            })
+        }
+    });
+};
 exports.findProductById = (req, res) => {
     const { sku } = req.params;
     console.log(sku);
@@ -25,9 +36,9 @@ exports.addProduct = (req, res) => {
         `INSERT INTO products VALUES (${sku},'${name}','${description}',${price},'1')`,
         (error, result) => {
             if (error) throw error;
-            res.render('addProduct',{
-                msg:'producto agregado'
-            })
+            res.render('addProduct', {
+                msg: 'producto agregado',
+            });
         }
     );
 };

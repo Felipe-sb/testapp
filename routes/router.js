@@ -5,7 +5,7 @@ const {checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPas
 const { checkEmailDB } = require('../middlewares/auth/checkEmailDB');
 const { registerDB } = require('../db/registerDB');
 const { contact } = require('../controllers/contactController');
-const { findProductById, addProduct } = require('../controllers/productController');
+const { findProductById, addProduct, getProducts } = require('../controllers/productController');
 const { checkEmptySku, checkEmptyName, checkEmptyDescription, checkEmptyPrice } = require('../middlewares/products/emptyField');
 const { checkProductOnDb } = require('../middlewares/products/checkProductOnDB');
 const router = express.Router();
@@ -60,6 +60,7 @@ router.get('/forgot-pass',(req,res)=>{
 router.get('/contact',(req,res)=>{
     res.render('contact',{alert:false})
 })
+router.get('/products',getProducts)
 router.get('/products/:sku',findProductById)
 
 //POSTS
