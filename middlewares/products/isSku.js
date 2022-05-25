@@ -13,8 +13,6 @@ exports.isSkus = (req, res, next) => {
             ruta: 'admin/add-product',
         });
     } else {
-        
-
         if (skuint <= 0) {
             res.render('addProduct', {
                 login: req.session.loggedin,
@@ -47,8 +45,6 @@ exports.isPrice = (req, res, next) => {
             ruta: 'admin/add-product',
         });
     } else {
-        
-
         if (priceint <= 0) {
             res.render('addProduct', {
                 login: req.session.loggedin,
@@ -65,3 +61,4 @@ exports.isPrice = (req, res, next) => {
         }
     }
 };
+

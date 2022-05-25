@@ -1,7 +1,17 @@
 const express = require('express');
 const con = require('../db/db')
-const authController = require('../controllers/authController');
-const { checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass } = require('../middlewares/auth/emptyField');
+const authController = require('../controllers/authController'); <<
+<<
+<<
+<
+HEAD
+const { checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass } = require('../middlewares/auth/emptyField'); ===
+===
+=
+const { checkEmptyUsername, checkEmptyEmail, checkEmptyPass, checkEmptyConfirmPass, checkEmptySubjet, checkEmptyProblem } = require('../middlewares/auth/emptyField'); >>>
+>>>
+>
+15814 f7af2afda4ed4e37e3d62921f329e4f4beb
 const { checkEmailDB } = require('../middlewares/auth/checkEmailDB');
 const { registerDB } = require('../db/registerDB');
 const { contact } = require('../controllers/contactController');
@@ -9,6 +19,7 @@ const { findProductById, addProduct, getProducts } = require('../controllers/pro
 const { checkEmptySku, checkEmptyName, checkEmptyDescription, checkEmptyPrice } = require('../middlewares/products/emptyField');
 const { checkProductOnDb } = require('../middlewares/products/checkProductOnDB');
 const { isSkus, isPrice } = require('../middlewares/products/isSku');
+const { isEmailContact } = require('../middlewares/auth/isEmail');
 const router = express.Router();
 
 router.get('/', (req, res) => {
