@@ -6,7 +6,7 @@ exports.checkEmptyEmail=(req,res,next)=>{
             alert:true,
             alertTitle:'Ooooops',
             alertMessage:'Por favor ingresa un corrreo electronico',
-            alertIcon:'warning',
+            alertIcon:'alert',
             showConfirmButton:true,
             timer:false,
             ruta:'login'
@@ -23,7 +23,7 @@ exports.checkEmptyPass=(req,res,next)=>{
             alert:true,
             alertTitle:'Ooooops',
             alertMessage:'Por favor ingresa una contraseña',
-            alertIcon:'warning',
+            alertIcon:'alert',
             showConfirmButton:true,
             timer:false,
             ruta:'login'
@@ -42,7 +42,7 @@ exports.checkEmptyUsername=(req,res,next)=>{
             alert:true,
             alertTitle:'Ooooops',
             alertMessage:'Por favor ingresa un nombre de usuario',
-            alertIcon:'warning',
+            alertIcon:'alert',
             showConfirmButton:true,
             timer:false,
             ruta:'register'
@@ -62,10 +62,61 @@ exports.checkEmptyConfirmPass=(req,res,next)=>{
             alert:true,
             alertTitle:'Ooooops',
             alertMessage:'Por favor confirma la contraseña',
-            alertIcon:'warning',
+            alertIcon:'alert',
             showConfirmButton:true,
             timer:false,
             ruta:'register'
+        })
+    }
+    next();
+}
+
+exports.checkEmptyEmailContact=(req,res,next)=>{
+    const {email} = req.body
+    if (!email) {
+        res.render('contact',{
+            login:req.session.loggedin,
+            alert:true,
+            alertTitle:'Ooooops',
+            alertMessage:'Por favor ingrese un correo',
+            alertIcon:'alert',
+            showConfirmButton:true,
+            timer:false,
+            ruta:'contact'
+        })
+    }
+    next();
+}
+
+exports.checkEmptySubjet=(req,res,next)=>{
+    const {subject} = req.body
+    if (!subject) {
+        res.render('contact',{
+            login:req.session.loggedin,
+            alert:true,
+            alertTitle:'Ooooops',
+            alertMessage:'Por favor ingrese un asunto',
+            alertIcon:'alert',
+            showConfirmButton:true,
+            timer:false,
+            ruta:'contact'
+        })
+    }
+    next();
+}
+
+exports.checkEmptyProblem=(req,res,next)=>{
+    const {text} = req.body
+    if (!text) {
+        res.render('contact',{
+            login:req.session.loggedin,
+            alert:true,
+            alertTitle:'Ooooops',
+            alertMessage:'Por favor detalle su problema',
+            alertIcon:'alert',
+            showConfirmButton:true,
+            timer:false,
+            ruta:'contact'
         })
     }
     next();
