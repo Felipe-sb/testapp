@@ -25,82 +25,83 @@
     </head>
     <body class="text-center">
         <% if (!login) { %>
-            <main class="form-signin">
-                <form id="registerForm" action="/register" method="POST" >
-                    <img
-                        class="mb-4"
-                        src="img/logo.svg"
-                        alt=""
-                        width="80"
-                        height="67"
+        <%- include('header',{login:login}); -%>
+        <main class="form-signin">
+            <form id="registerForm" action="/register" method="POST">
+                <img
+                    class="mb-4"
+                    src="img/logo.svg"
+                    alt=""
+                    width="80"
+                    height="67"
+                />
+                <h1 class="h3 mb-3 fw-normal">Registrarse</h1>
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInput"
+                        name="username"
+                        placeholder="username"
                     />
-                    <h1 class="h3 mb-3 fw-normal">Registrarse</h1>
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="floatingInput"
-                            name="username"
-                            placeholder="username"
-                        />
-                        <label for="floatingInput">Nombre de usuario</label>
-                    </div>
-    
-                    <div class="form-floating">
-                        <input
-                            type="email"
-                            class="form-control"
-                            id="floatingInput"
-                            name="email"
-                            placeholder="email"
-                        />
-                        <label for="floatingInput">Correo electronico</label>
-                    </div>
-                    <div class="form-floating">
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="floatingPassword"
-                            name="pass"
-                            placeholder="Password"
-                        />
-                        <label for="floatingPassword">Contraseña</label>
-                    </div>
-                    <div class="form-floating">
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="floatingPassword"
-                            name="confirmPass"
-                            placeholder="Password"
-                        />
-                        <label for="floatingPassword">Confirma tu contraseña</label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">
-                        Registrarse
-                    </button>
-                    <p>Si ya tienes una cuenta haz <a href="/login">click aqui</a></p>
-                </form>
-            </main>
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <% if (alert) { %>
-                <script>
-                    Swal.fire({
-                        title:'<%=alertTitle%>',
-                        text:'<%=alertMessage%>',
-                        icon:'<%=alertIcon%>',
-                        showConfirmButton:<%=showConfirmButton%>,
-                        timer:<%=timer%>
-                    }).then(()=>{
-                        window.location='/<%=ruta%>'
-                    })
-                </script>
-            <% } %>
-        <% } else { %>
-            <script>
-                window.location='/';
-            </script>
+                    <label for="floatingInput">Nombre de usuario</label>
+                </div>
+
+                <div class="form-floating">
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="floatingInput"
+                        name="email"
+                        placeholder="email"
+                    />
+                    <label for="floatingInput">Correo electronico</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="floatingPassword"
+                        name="pass"
+                        placeholder="Password"
+                    />
+                    <label for="floatingPassword">Contraseña</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="floatingPassword"
+                        name="confirmPass"
+                        placeholder="Password"
+                    />
+                    <label for="floatingPassword">Confirma tu contraseña</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
+                    Registrarse
+                </button>
+                <p>
+                    Si ya tienes una cuenta haz <a href="/login">click aqui</a>
+                </p>
+            </form>
+        </main>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <% if (alert) { %>
+        <script>
+            Swal.fire({
+                title:'<%=alertTitle%>',
+                text:'<%=alertMessage%>',
+                icon:'<%=alertIcon%>',
+                showConfirmButton:<%=showConfirmButton%>,
+                timer:<%=timer%>
+            }).then(()=>{
+                window.location='/<%=ruta%>'
+            })
+        </script>
+        <% } %> <% } else { %>
+        <script>
+            window.location = '/';
+        </script>
         <%}%>
-        
     </body>
 </html>

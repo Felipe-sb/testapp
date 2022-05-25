@@ -27,7 +27,7 @@
 
 <body class="text-center">
     <% if (!login) { %>
-        <%- include('header',{login:login,username:username}); -%>
+        <%- include('header',{login:login}); -%>
             <main class="form-signin">
                 <form id="loginForm" action="/login" method="POST">
                     <img class="mb-4" src="img/logo.svg" alt="logo" width="80" height="67" />

@@ -7,7 +7,8 @@ exports.getProducts = (req, res) => {
             if (req.session.loggedin) {
                 res.render('products', {
                     data: result,
-                    login: true
+                    login: true,
+                    username:req.session.username
                 })
             } else {
                 res.render('products', {
@@ -36,7 +37,8 @@ exports.findProductById = (req, res) => {
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
-                    login: true
+                    login: true,
+                    username:req.session.username
                 });
             } else {
                 res.render(`product`, {

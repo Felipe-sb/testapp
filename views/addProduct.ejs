@@ -1,59 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>addProduct</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>addProduct</title>
-</head>
+    <body>
+        <% if (login) { %> 
+            <%-include('header',{login:login,username:username}); -%> 
+        <% }else{ %> 
+            <%-include('header',{login:login}); -%> 
+        <%}%>
+        <main class="form-signin">
+            <form id="registerForm" action="/admin/add-product" method="POST">
+                <img
+                    class="mb-4"
+                    src="img/logo.svg"
+                    alt=""
+                    width="80"
+                    height="67"
+                />
+                <h1 class="h3 mb-3 fw-normal">SKU</h1>
+                <div class="form-floating">
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="floatingInput"
+                        name="sku"
+                        placeholder="SKU"
+                    />
+                    <label for="floatingInput">SKU</label>
+                </div>
 
-<body>
-    <% if (login) { %>
-        <%- include('header',{login:login,username:username}); -%>
-            <% }else{ %>
-                <%- include('header',{login:login}); -%>
-                    <%}%>
-                        <main class="form-signin">
-                            <form id="registerForm" action="/admin/add-product" method="POST">
-                                <img class="mb-4" src="img/logo.svg" alt="" width="80" height="67" />
-                                <h1 class="h3 mb-3 fw-normal">SKU</h1>
-                                <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingInput" name="sku" placeholder="SKU" />
-                                    <label for="floatingInput">SKU</label>
-                                </div>
-
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInput" name="name" placeholder="Nombre" />
-                                    <label for="floatingInput">Nombre</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPassword" name="description" placeholder="Descripción" />
-                                    <label for="floatingPassword">Descripción</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingPassword" name="price" placeholder="Precio" />
-                                    <label for="floatingPassword">Precio</label>
-                                </div>
-                                <button class="w-100 btn btn-lg btn-primary" type="submit">
-                Agregar Producto
-            </button>
-                            </form>
-                        </main>
-                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                        <% if (alert) { %>
-                            <script>
-                                Swal.fire({
-                                    title: '<%=alertTitle%>',
-                                    text: '<%=alertMessage%>',
-                                    icon: '<%=alertIcon%>',
-                                    showConfirmButton: <%=showConfirmButton%>,
-                                    timer: <%=timer%>,
-                                }).then(() => {
-                                    window.location = '/<%=ruta%>'
-                                })
-                            </script>
-                            <% } %>
-</body>
-
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInput"
+                        name="name"
+                        placeholder="Nombre"
+                    />
+                    <label for="floatingInput">Nombre</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="floatingPassword"
+                        name="description"
+                        placeholder="Descripción"
+                    />
+                    <label for="floatingPassword">Descripción</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="floatingPassword"
+                        name="price"
+                        placeholder="Precio"
+                    />
+                    <label for="floatingPassword">Precio</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
+                    Agregar Producto
+                </button>
+            </form>
+        </main>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <% if (alert) { %>
+        <script>
+            Swal.fire({
+                title: '<%=alertTitle%>',
+                text: '<%=alertMessage%>',
+                icon: '<%=alertIcon%>',
+                showConfirmButton: <%=showConfirmButton%>,
+                timer: <%=timer%>,
+            }).then(() => {
+                window.location = '/<%=ruta%>'
+            })
+        </script>
+        <% } %>
+    </body>
 </html>
