@@ -1,13 +1,15 @@
 const { v4: uuidv4 } = require('uuid');
 const con = require('./db');
 const transporter = require('../helpers/transporter');
+const bcryptjs = require('bcryptjs');
 
-exports.registerDB=(req,res)=>{
+exports.registerDB=async(req,res)=>{
     const {username,email,pass,confirmPass} = req.body
     console.log(username,email,pass,confirmPass)
     const id=uuidv4()
+    const hashPass = await bcryptjs.hash(pass,8)
     con.query(
-        `INSERT INTO users VALUES ('${id}','${username}','${email}','${pass}')`,async(error,result)=>{
+        `INSERT INTO users VALUES ('${id}','${username}','${email}','${hashPass}')`,async(error,result)=>{
             if(error)throw error
             console.log(result)
             try {
