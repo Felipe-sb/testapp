@@ -1,5 +1,5 @@
-exports.checkEmptySku=(req,res,next)=>{
-    const {sku} = req.body
+exports.checkEmptySku = (req, res, next) => {
+    const { sku } = req.body
     if (!sku) {
         res.render('addProduct', {
             login: req.session.loggedin,
@@ -11,12 +11,13 @@ exports.checkEmptySku=(req,res,next)=>{
             timer: false,
             ruta: 'admin/add-product',
         })
+    } else {
+        next()
     }
-    next();
 }
-exports.checkEmptyName=(req,res,next)=>{
-    const {name} = req.body
-    if(!name){
+exports.checkEmptyName = (req, res, next) => {
+    const { name } = req.body
+    if (!name) {
         res.render('addProduct', {
             login: req.session.loggedin,
             alert: true,
@@ -27,13 +28,13 @@ exports.checkEmptyName=(req,res,next)=>{
             timer: false,
             ruta: 'admin/add-product',
         })
-    }else{
+    } else {
         next()
     }
 }
-exports.checkEmptyDescription=(req,res,next)=>{
-    const {description} = req.body
-    if(!description){
+exports.checkEmptyDescription = (req, res, next) => {
+    const { description } = req.body
+    if (!description) {
         res.render('addProduct', {
             login: req.session.loggedin,
             alert: true,
@@ -44,13 +45,13 @@ exports.checkEmptyDescription=(req,res,next)=>{
             timer: false,
             ruta: 'admin/add-product',
         })
-    }else{
+    } else {
         next()
     }
 }
-exports.checkEmptyPrice=(req,res,next)=>{
-    const {price} = req.body
-    if(!price){
+exports.checkEmptyPrice = (req, res, next) => {
+    const { price } = req.body
+    if (!price) {
         res.render('addProduct', {
             login: req.session.loggedin,
             alert: true,
@@ -61,7 +62,7 @@ exports.checkEmptyPrice=(req,res,next)=>{
             timer: false,
             ruta: 'admin/add-product',
         })
-    }else{
+    } else {
         next()
     }
 }

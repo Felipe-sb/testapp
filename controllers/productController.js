@@ -4,9 +4,18 @@ exports.getProducts = (req, res) => {
         if (error) throw error;
         console.log(result)
         if (result.length !== 0) {
-            res.render('products',{
-                data:result
-            })
+            if (req.session.loggedin) {
+                res.render('products', {
+                    data: result,
+                    login: true
+                })
+            } else {
+                res.render('products', {
+                    data: result,
+                    login: false
+                })
+            }
+
         }
     });
 };
@@ -20,13 +29,26 @@ exports.findProductById = (req, res) => {
             const [data] = result;
             console.log(data);
             const { sku, name, description, price, partialDelete } = data;
-            res.render(`product`, {
-                sku: sku,
-                name: name,
-                description: description,
-                price: price,
-                partialDelete: partialDelete,
-            });
+            if (req.session.loggedin) {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: true
+                });
+            } else {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: false
+                });
+            }
+
         }
     });
 };
