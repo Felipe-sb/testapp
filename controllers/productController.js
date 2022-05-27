@@ -73,3 +73,20 @@ exports.addProduct = (req, res) => {
         }
     );
 };
+exports.verifyProduct = (req,res)=>{
+    const {verified,sku} = req.body;
+    console.log(verified,sku)
+    con.query(`UPDATE products SET verified = '${verified}' WHERE sku = ${sku};`,(error,result)=>{
+        if(error) throw error
+        res.render('verifiedProduct', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'EXITO',
+            alertMessage: 'Producto Verificado Exitosamente',
+            alertIcon: 'success',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'admin/verified-product',
+        })
+    })
+}
