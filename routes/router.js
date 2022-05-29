@@ -104,6 +104,15 @@ router.get('/add-to-cart', (req, res) => {
     console.log(sku)
 });
 
+router.get('/carrito-compras', (req, res) => {
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('carrito-compras', { alert: false, login: true });
+    } else {
+        res.render('carrito-compras', { alert: false, login: false });
+    }
+});
+
 //POSTS
 router.post(
     '/register',
@@ -134,5 +143,5 @@ router.post(
     isPrice,
     addProduct
 );
-router.post('/admin/verified-product',verifyProduct)
+router.post('/admin/verified-product', verifyProduct)
 module.exports = router;
