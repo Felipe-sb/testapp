@@ -118,6 +118,15 @@ router.get('/carrito-compras', (req, res) => {
     }
 });
 
+router.get('/addProduct', (req, res) => {
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('addProduct', { alert: false, login: true });
+    } else {
+        res.render('addProduct', { alert: false, login: false });
+    }
+});
+
 //POSTS
 router.post(
     '/register',
