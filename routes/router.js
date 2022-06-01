@@ -16,6 +16,9 @@ const {
     addProduct,
     getProducts,
     verifyProduct,
+    verifiedProductById,
+    updateProduct,
+    verifiedProduct,
 } = require('../controllers/productController');
 const {
     checkEmptySku,
@@ -28,6 +31,7 @@ const {
 } = require('../middlewares/products/checkProductOnDB');
 const { isSkus, isPrice } = require('../middlewares/products/isSku');
 const { isEmailContact } = require('../middlewares/auth/isEmail');
+const { addProductToCart } = require('../controllers/cartController');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -83,6 +87,10 @@ router.get('/contact', (req, res) => {
 router.get('/products', getProducts);
 router.get('/products/:sku', findProductById);
 
+router.get('/verified-products/:sku', verifiedProductById);
+router.get('/verified-products', verifiedProduct);
+
+
 router.get('/admin/add-product', (req, res) => {
     if (req.session.loggedin) {
         res.render('addProduct', {
@@ -99,10 +107,7 @@ router.get('/admin/add-product', (req, res) => {
         });
     }
 });
-router.get('/add-to-cart', (req, res) => {
-    const sku = req.query.sku;
-    console.log(sku)
-});
+
 
 router.get('/carrito-compras', (req, res) => {
     console.log(req.session);
@@ -143,5 +148,11 @@ router.post(
     isPrice,
     addProduct
 );
-router.post('/admin/verified-product', verifyProduct)
+
+router.post(
+    '/add-to-cart', addProductToCart 
+    
+);
+
+router.post('/admin/verified-product', updateProduct)
 module.exports = router;

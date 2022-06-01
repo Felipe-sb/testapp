@@ -54,6 +54,65 @@ exports.findProductById = (req, res) => {
         }
     });
 };
+
+exports.verifiedProductById = (req, res) => {
+    const { sku } = req.params;
+    console.log(sku);
+    con.query(`SELECT * FROM products WHERE sku=${sku}`, (error, result) => {
+        if (error) throw error;
+        console.log(result);
+        if (result.length !== 0) {
+            const [data] = result;
+            console.log(data);
+            const { sku, name, description, price, partialDelete } = data;
+            if (req.session.loggedin) {
+                res.render(`verified-product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: true,
+                    username:req.session.username
+                });
+            } else {
+                res.render(`verified-product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: false
+                });
+            }
+
+        }
+    });
+};
+
+
+exports.verifiedProduct = (req, res) => {
+    con.query('SELECT * FROM products', (error, result) => {
+        if (error) throw error;
+        console.log(result)
+        if (result.length !== 0) {
+            if (req.session.loggedin) {
+                res.render('verified-products', {
+                    data: result,
+                    login: true,
+                    username:req.session.username
+                })
+            } else {
+                res.render('verified-products', {
+                    data: result,
+                    login: false
+                })
+            }
+
+        }
+    });
+};
+
 exports.addProduct = (req, res) => {
     const { sku, name, description, price } = req.body;
     con.query(
@@ -73,20 +132,26 @@ exports.addProduct = (req, res) => {
         }
     );
 };
-exports.verifyProduct = (req,res)=>{
-    const {verified,sku} = req.body;
-    console.log(verified,sku)
-    con.query(`UPDATE products SET verified = '${verified}' WHERE sku = ${sku};`,(error,result)=>{
+exports.updateProduct = (req,res)=>{
+    const {sku} = req.body;
+    console.log(sku)
+    con.query(`UPDATE products SET verified = '1' WHERE sku = ${sku};`,async(error,result)=>{
         if(error) throw error
-        res.render('verifiedProduct', {
-            login: req.session.loggedin,
-            alert: true,
-            alertTitle: 'EXITO',
-            alertMessage: 'Producto Verificado Exitosamente',
-            alertIcon: 'success',
-            showConfirmButton: true,
-            timer: false,
-            ruta: 'admin/verified-product',
-        })
+
+        
+        /*
+
+        TODO ESPERANDO LA VISTA PARA PODER AGREGAR EL PRODUCTO 
+
+        await transporter.sendMail({
+            from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+            to: `${email}`,
+            subject: 'account created',
+            text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
+        });
+        */
+
+        res.redirect('/verified-products')
     })
 }
+

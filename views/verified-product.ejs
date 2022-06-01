@@ -14,18 +14,33 @@
     </head>
 
     <body>
-        <% if (login) { %> <%-include('header',{login:login,username:username});
-        -%> <% }else{ %> <%- include('header',{login:login}); -%> <%}%>
-        <h1><%=sku %></h1>
+        <% if (login) { %> 
+            <%-include('header',{login:login,username:username}); -%> 
+        <% }else{ %>
+            <%- include('header',{login:login}); -%> 
+        <%}%>
+        <h1><%=sku%></h1>
         <h1><%=description%></h1>
 
-        <form method="post" action="/add-to-cart">
-            <input name="sku" type="hidden" value="<%=sku%>" />
-            <button class="btn btn-success">Agregar Al Carrito</button>
-        </form>
 
-        
-        
+       <form action="/admin/verified-product" method="post">
+        <input  name="sku" type="hidden" value="<%=sku%>"/>
+        <button class="btn btn-success">VERIFICAR PRODUCTO</button>
+
+
+
+       </form>
+
+
+       <form>
+        <input  name="sku" type="hidden" value="<%=sku%>"/>
+        <button class="btn btn-danger">RECHAZAR PRODUCTO</button>
+
+
+
+
+       </form>
+
         <%- include ('footer'); -%>
     </body>
 </html>
