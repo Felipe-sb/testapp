@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Login</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" />
+        
+        
 
         <style>
             .bd-placeholder-img {
@@ -22,11 +24,15 @@
             }
         </style>
         <link href="css/signin.css" rel="stylesheet" />
+        
     </head>
-
-    <body class="text-center">
+   
+    <body>
         <% if (!login) { %> <%- include('header',{login:login}); -%>
+
+        <div >
         <main class="form-signin">
+          
             <form id="loginForm" action="/login" method="POST">
                 <img
                     class="mb-4"
@@ -67,7 +73,10 @@
                     <a href="/forgot-pass">click aqui</a>
                 </p>
             </form>
+        
+        
         </main>
+    </div>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <% if (alert) { %>
         <script>
