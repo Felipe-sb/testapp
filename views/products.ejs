@@ -23,24 +23,38 @@
         >
         </a>
 
-        <div class="row container-fluid">
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%=packet.name%></h5>
-                        <p class="card-text">
-                            <%=packet.description%>
-                        </p>
-                        <p class "card-text">
-                            $<%=packet.price%>
-                        </p>
-                        
-                        <a href="products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>
-                    </div>
-                </div>
-            </div>
+        <div
+            class="row container-fluid"
+            style="margin-left: 8px; margin-top: 7px; margin-bottom: 7px"
+        >
+
             
+        
+                <div class="row container-fluid">
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%=packet.name%></h5>
+                                <p class="card-text">
+                                    <%=packet.description%>
+                                </p>
+                                <p class "card-text">
+                                    $<%=packet.price%>
+                                </p>
+                                
+                                <a href="products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            
+ 
         </div>
+
+
+        
         <% }) %> <%- include ('footer'); -%>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
