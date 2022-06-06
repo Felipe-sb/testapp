@@ -147,7 +147,7 @@ exports.updateProductBD = (req, res) => {
                 alertIcon: 'success',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/update-product',
+                ruta: 'updateProduct',
             })
         }
     );

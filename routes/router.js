@@ -26,11 +26,21 @@ const {
     checkEmptyName,
     checkEmptyDescription,
     checkEmptyPrice,
+    checkEmptySkuUpdate,
+    checkEmptyNameUpdate,
+    checkEmptyDescriptionUpdate,
+    checkEmptyPriceUpdate,
 } = require('../middlewares/products/emptyField');
 const {
     checkProductOnDb,
+    checkProductExist,
 } = require('../middlewares/products/checkProductOnDB');
-const { isSkus, isPrice } = require('../middlewares/products/isSku');
+const {
+    isSkus,
+    isPrice,
+    isSkuUpdate,
+    isPriceUpdate,
+} = require('../middlewares/products/isSku');
 const { isEmailContact } = require('../middlewares/auth/isEmail');
 const { addProductToCart } = require('../controllers/cartController');
 const router = express.Router();
@@ -91,7 +101,6 @@ router.get('/products/:sku', findProductById);
 router.get('/verified-products/:sku', verifiedProductById);
 router.get('/verified-products', verifiedProduct);
 
-
 router.get('/admin/add-product', (req, res) => {
     if (req.session.loggedin) {
         res.render('addProduct', {
@@ -126,7 +135,6 @@ router.get('/admin/update-product', (req, res) => {
     }
 });
 
-
 router.get('/carrito-compras', (req, res) => {
     console.log(req.session);
     if (req.session.loggedin) {
@@ -153,8 +161,6 @@ router.get('/updateProduct', (req, res) => {
         res.render('updateProduct', { alert: false, login: false });
     }
 });
-
-
 
 //POSTS
 router.post(
@@ -188,14 +194,18 @@ router.post(
 );
 
 router.post(
-    '/admin/update-product',updateProductBD,
-    
+    '/admin/update-product',
+    checkEmptySkuUpdate,
+    checkProductExist,
+    checkEmptyNameUpdate,
+    checkEmptyDescriptionUpdate,
+    checkEmptyPriceUpdate,
+    isSkuUpdate,
+    isPriceUpdate,
+    updateProductBD
 );
 
-router.post(
-    '/add-to-cart', addProductToCart 
-    
-);
+router.post('/add-to-cart', addProductToCart);
 
-router.post('/admin/verified-product', updateProduct)
+router.post('/admin/verified-product', updateProduct);
 module.exports = router;
