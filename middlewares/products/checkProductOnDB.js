@@ -9,7 +9,7 @@ exports.checkProductOnDb = (req, res, next) => {
                 alert: true,
                 alertTitle: 'Ooooooops',
                 alertMessage: 'El Producto Ya Existe',
-                alertIcon: 'alert',
+                alertIcon: 'warning',
                 showConfirmButton: true,
                 timer: false,
                 ruta: 'admin/add-product',

@@ -19,6 +19,7 @@ const {
     verifiedProductById,
     updateProduct,
     verifiedProduct,
+    updateProductBD,
 } = require('../controllers/productController');
 const {
     checkEmptySku,
@@ -108,6 +109,23 @@ router.get('/admin/add-product', (req, res) => {
     }
 });
 
+router.get('/admin/update-product', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('updateProduct', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('updateProduct', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
 
 router.get('/carrito-compras', (req, res) => {
     console.log(req.session);
@@ -126,6 +144,17 @@ router.get('/addProduct', (req, res) => {
         res.render('addProduct', { alert: false, login: false });
     }
 });
+
+router.get('/updateProduct', (req, res) => {
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('updateProduct', { alert: false, login: true });
+    } else {
+        res.render('updateProduct', { alert: false, login: false });
+    }
+});
+
+
 
 //POSTS
 router.post(
@@ -156,6 +185,11 @@ router.post(
     isSkus,
     isPrice,
     addProduct
+);
+
+router.post(
+    '/admin/update-product',updateProductBD,
+    
 );
 
 router.post(

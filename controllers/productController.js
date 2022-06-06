@@ -116,7 +116,7 @@ exports.verifiedProduct = (req, res) => {
 exports.addProduct = (req, res) => {
     const { sku, name, description, price } = req.body;
     con.query(
-        `INSERT INTO products VALUES (${sku},'${name}','${description}',${price},'1')`,
+        `INSERT INTO products VALUES (${sku},'${name}','${description}',${price},'0','0')`,
         (error, result) => {
             if (error) throw error;
             res.render('addProduct', {
@@ -132,6 +132,27 @@ exports.addProduct = (req, res) => {
         }
     );
 };
+
+exports.updateProductBD = (req, res) => {
+    const { sku, name, description, price } = req.body;
+    con.query(
+        `UPDATE products SET name='${name}',description='${description}',price= ${price},partialDelete= '0',verified= '0' WHERE sku=${sku} `,
+        (error, result) => {
+            if (error) throw error;
+            res.render('updateProduct', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'EXITO',
+                alertMessage: 'Producto Actualizado Exitosamente',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'admin/update-product',
+            })
+        }
+    );
+};
+
 exports.updateProduct = (req,res)=>{
     const {sku} = req.body;
     console.log(sku)
