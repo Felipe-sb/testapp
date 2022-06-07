@@ -93,8 +93,25 @@ router.get('/forgot-pass', (req, res) => {
     }
 });
 router.get('/contact', (req, res) => {
-    res.render('contact', { alert: false });
+    res.render('contact', {
+        login: true,
+        id: req.session.idUser,
+        username: req.session.username,
+        email: req.session.email,
+        alert: false,
+    });
 });
+
+router.get('/nosotros', (req, res) => {
+    res.render('nosotros', {
+        login: true,
+        id: req.session.idUser,
+        username: req.session.username,
+        email: req.session.email,
+        alert: false,
+    });
+});
+
 router.get('/products', getProducts);
 router.get('/products/:sku', findProductById);
 
