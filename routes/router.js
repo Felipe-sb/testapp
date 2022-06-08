@@ -21,6 +21,7 @@ const {
     updateProduct,
     verifiedProduct,
     updateProductBD,
+    findProductById2,
 } = require('../controllers/productController');
 const {
     checkEmptySku,
@@ -228,6 +229,11 @@ router.post(
     isSkuUpdate,
     isPriceUpdate,
     updateProductBD
+);
+
+router.post(
+    '/admin/find-product',
+    findProductById2
 );
 
 router.post('/add-to-cart', addProductToCart);

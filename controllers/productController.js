@@ -20,6 +20,41 @@ exports.getProducts = (req, res) => {
         }
     });
 };
+exports.findProductById2 = (req, res) => {
+    const { sku } = req.body;
+    console.log(sku);
+    con.query(`SELECT * FROM products WHERE sku=${sku}`, (error, result) => {
+        if (error) throw error;
+        console.log(result);
+        if (result.length !== 0) {
+            const [data] = result;
+            console.log(data);
+            const { sku, name, description, price, partialDelete } = data;
+            if (req.session.loggedin) {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: true,
+                    username:req.session.username
+                });
+            } else {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: false
+                });
+            }
+
+        }
+    });
+};
+
 exports.findProductById = (req, res) => {
     const { sku } = req.params;
     console.log(sku);
