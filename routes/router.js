@@ -179,6 +179,13 @@ router.get('/updateProduct', (req, res) => {
     }
 });
 
+router.get('/baned-account', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('baned-account', { alert: false, login: true });
+    } else {
+        res.render('baned-account', { alert: false, login: false });
+    }
+})
 //POSTS
 router.post(
     '/register',
@@ -225,4 +232,5 @@ router.post(
 router.post('/add-to-cart', addProductToCart);
 
 router.post('/admin/verified-product', updateProduct);
+router.post('/baned-account', banAccount)
 module.exports = router;

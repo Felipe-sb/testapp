@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baned account</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <%- include ('header') %> 
+    <div class="form-group">
+        <form action="/baned-account" method="post">
+            <input type="text" name="sku" value=""/>
+            <select name="reason">
+                <option value="baned-account">ban account</option>
+            </select>
+            <textarea name="message"></textarea>
+            <input type="hidden" name="email" value=""/>
+            <input type="submit" value="enviar">
+        </form>
+    </div>
+    <%- include ('footer') %> 
+</body>
+</html>
