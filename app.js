@@ -24,8 +24,6 @@ app.use((req, res, next) => {
         "<h1>Page not found on the server</h1>")
 })
 
-dotenv.config({ path: './env/.env' });
-
 app.listen(process.env.PORT, () => {
     console.log(`el servidor esta arriba`);
 });
