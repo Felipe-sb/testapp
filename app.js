@@ -27,5 +27,5 @@ app.use((req, res, next) => {
 dotenv.config({ path: './env/.env' });
 
 app.listen(process.env.PORT, () => {
-    console.log(`el servidor esta arriba en http://localhost:5000`);
+    console.log(`el servidor esta arriba`);
 });
