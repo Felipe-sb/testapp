@@ -1,5 +1,6 @@
 const express = require('express');
 const authController = require('../controllers/authController');
+const {banAccount} = require('../controllers/banAccount')
 const {
     checkEmptyUsername,
     checkEmptyEmail,
@@ -232,5 +233,5 @@ router.post(
 router.post('/add-to-cart', addProductToCart);
 
 router.post('/admin/verified-product', updateProduct);
-router.post('/baned-account', banAccount)
+router.post('/baned-account', banAccount);
 module.exports = router;
