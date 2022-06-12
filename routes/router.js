@@ -120,7 +120,7 @@ router.get('/products/:sku', findProductById);
 router.get('/verified-products/:sku', verifiedProductById);
 router.get('/verified-products', verifiedProduct);
 
-router.get('/admin/add-product', (req, res) => {
+router.get('/addProduct', (req, res) => {
     if (req.session.loggedin) {
         res.render('addProduct', {
             login: true,
@@ -137,7 +137,7 @@ router.get('/admin/add-product', (req, res) => {
     }
 });
 
-router.get('/admin/update-product', (req, res) => {
+router.get('/updateProduct', (req, res) => {
     if (req.session.loggedin) {
         res.render('updateProduct', {
             login: true,
@@ -208,7 +208,7 @@ router.post(
     contact
 );
 router.post(
-    '/admin/add-product',
+    '/addProduct',
     checkEmptySku,
     checkProductOnDb,
     checkEmptyName,
@@ -220,7 +220,7 @@ router.post(
 );
 
 router.post(
-    '/admin/update-product',
+    '/updateProduct',
     checkEmptySkuUpdate,
     checkProductExist,
     checkEmptyNameUpdate,

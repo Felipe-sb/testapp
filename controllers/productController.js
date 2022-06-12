@@ -162,7 +162,7 @@ exports.addProduct = (req, res) => {
                 alertIcon: 'success',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/add-product',
+                ruta: 'addProduct',
             })
         }
     );

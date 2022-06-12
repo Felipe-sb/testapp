@@ -9,7 +9,7 @@ exports.checkEmptySku = (req, res, next) => {
             alertIcon: 'warning',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         })
     } else {
         next()
@@ -43,7 +43,7 @@ exports.checkEmptyName = (req, res, next) => {
             alertIcon: 'warning',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         })
     } else {
         next()
@@ -79,7 +79,7 @@ exports.checkEmptyDescription = (req, res, next) => {
             alertIcon: 'warning',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         })
     } else {
         next()
@@ -115,7 +115,7 @@ exports.checkEmptyPrice = (req, res, next) => {
             alertIcon: 'warning',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         })
     } else {
         next()

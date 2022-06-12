@@ -12,7 +12,7 @@ exports.checkProductOnDb = (req, res, next) => {
                 alertIcon: 'warning',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/add-product',
+                ruta: 'addProduct',
             });
         } else {
             next();

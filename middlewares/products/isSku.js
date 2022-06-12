@@ -10,7 +10,7 @@ exports.isSkus = (req, res, next) => {
             alertIcon: 'alert',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         });
     } else {
         if (skuint <= 0) {
@@ -22,7 +22,7 @@ exports.isSkus = (req, res, next) => {
                 alertIcon: 'alert',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/add-product',
+                ruta: 'addProduct',
             });
         } else {
             next();
@@ -42,7 +42,7 @@ exports.isSkuUpdate = (req, res, next) => {
             alertIcon: 'alert',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/update-product',
+            ruta: 'updateProduct',
         });
     } else {
         if (skuint <= 0) {
@@ -54,7 +54,7 @@ exports.isSkuUpdate = (req, res, next) => {
                 alertIcon: 'alert',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/update-product',
+                ruta: 'updateProduct',
             });
         } else {
             next();
@@ -74,7 +74,7 @@ exports.isPrice = (req, res, next) => {
             alertIcon: 'alert',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/add-product',
+            ruta: 'addProduct',
         });
     } else {
         if (priceint <= 0) {
@@ -86,7 +86,7 @@ exports.isPrice = (req, res, next) => {
                 alertIcon: 'alert',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/add-product',
+                ruta: 'addProduct',
             });
         } else {
             next();
@@ -106,7 +106,7 @@ exports.isPriceUpdate = (req, res, next) => {
             alertIcon: 'alert',
             showConfirmButton: true,
             timer: false,
-            ruta: 'admin/update-product',
+            ruta: 'updateProduct',
         });
     } else {
         if (priceint <= 0) {
@@ -118,7 +118,7 @@ exports.isPriceUpdate = (req, res, next) => {
                 alertIcon: 'alert',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/update-product',
+                ruta: 'updateProduct',
             });
         } else {
             next();
