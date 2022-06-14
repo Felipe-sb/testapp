@@ -95,13 +95,20 @@ router.get('/forgot-pass', (req, res) => {
     }
 });
 router.get('/contact', (req, res) => {
-    res.render('contact', {
-        login: true,
-        id: req.session.idUser,
-        username: req.session.username,
-        email: req.session.email,
-        alert: false,
-    });
+    if (req.session.loggedin) {
+        res.render('contact', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('contact', {
+            login: false,
+            alert: false,
+        });
+    }
 });
 
 router.get('/nosotros', (req, res) => {

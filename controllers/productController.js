@@ -1,6 +1,7 @@
 const con = require('../db/db');
 exports.getProducts = (req, res) => {
     con.query('SELECT * FROM products', (error, result) => {
+
         if (error) throw error;
         console.log(result)
         if (result.length !== 0) {
@@ -17,6 +18,12 @@ exports.getProducts = (req, res) => {
                 })
             }
 
+        }  else {
+            res.render('products', {
+                data: null,
+                login: true,
+                username:req.session.username
+            })
         }
     });
 };
