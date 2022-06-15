@@ -22,6 +22,12 @@ body {
   z-index: 2;
 }
 
+.form-floating2:focus-within {
+  z-index: 2;
+  padding: 30;
+  margin-bottom: 10px;
+}
+
 .form-signin input[type="email"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
