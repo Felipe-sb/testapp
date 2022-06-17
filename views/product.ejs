@@ -12,7 +12,7 @@
         />
         <title>Product</title>
     </head>
-
+   <center>
     <body>
         <% if (login) { %> <%-include('header',{login:login,username:username});
         -%> <% }else{ %> <%- include('header',{login:login}); -%> <%}%>
@@ -23,9 +23,11 @@
             <input name="sku" type="hidden" value="<%=sku%>" />
             <button class="btn btn-success">Agregar Al Carrito</button>
         </form>
+        
 
         
         
         <%- include ('footer'); -%>
     </body>
+</center>
 </html>

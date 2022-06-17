@@ -12,13 +12,15 @@ CREATE TABLE `paytoowin`.`users` (
 CREATE TABLE `paytoowin`.`products` (
   `sku` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
+  `game` VARCHAR(45) NOT NULL,
+  `level` INT NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   `price` VARCHAR(45) NOT NULL,
   `partialDelete` TINYINT NOT NULL,
+  `verified` BOOLEAN NOT NULL,
   PRIMARY KEY (`sku`)
 ) ENGINE = InnoDB;
 
-ALTER TABLE `products` ADD `verified` BOOLEAN NOT NULL AFTER `partialDelete`;
 
 CREATE TABLE IF NOT EXISTS `paytoowin`.`cart` (
   `id` VARCHAR(255) NOT NULL,

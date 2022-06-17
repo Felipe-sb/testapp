@@ -8,6 +8,8 @@ const {
     checkEmptyConfirmPass,
     checkEmptySubjet,
     checkEmptyProblem,
+    checkEmptyEmailRegister,
+    checkEmptyPassRegister,
 } = require('../middlewares/auth/emptyField');
 const { checkEmailDB } = require('../middlewares/auth/checkEmailDB');
 const { registerDB } = require('../db/registerDB');
@@ -32,10 +34,15 @@ const {
     checkEmptyNameUpdate,
     checkEmptyDescriptionUpdate,
     checkEmptyPriceUpdate,
+    checkEmptyGame,
+    checkEmptyGameUpdate,
+    checkEmptyLevelUpdate,
+    checkEmptyLevel,
 } = require('../middlewares/products/emptyField');
 const {
     checkProductOnDb,
     checkProductExist,
+    checkProductExistSeach,
 } = require('../middlewares/products/checkProductOnDB');
 const {
     isSkus,
@@ -43,7 +50,7 @@ const {
     isSkuUpdate,
     isPriceUpdate,
 } = require('../middlewares/products/isSku');
-const { isEmailContact } = require('../middlewares/auth/isEmail');
+const { isEmailContact, isEmail, isEmailRegister, checkPass, confirmPass, checkConfirmPass } = require('../middlewares/auth/isEmail');
 const { addProductToCart } = require('../controllers/cartController');
 const router = express.Router();
 
@@ -95,23 +102,37 @@ router.get('/forgot-pass', (req, res) => {
     }
 });
 router.get('/contact', (req, res) => {
-    res.render('contact', {
-        login: true,
-        id: req.session.idUser,
-        username: req.session.username,
-        email: req.session.email,
-        alert: false,
-    });
+    if (req.session.loggedin) {
+        res.render('contact', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('contact', {
+            login: false,
+            alert: false,
+        });
+    }
 });
 
 router.get('/nosotros', (req, res) => {
-    res.render('nosotros', {
-        login: true,
-        id: req.session.idUser,
-        username: req.session.username,
-        email: req.session.email,
-        alert: false,
-    });
+    if (req.session.loggedin) {
+        res.render('nosotros', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('nosotros', {
+            login: false,
+            alert: false,
+        });
+    }
 });
 
 router.get('/products', getProducts);
@@ -131,6 +152,23 @@ router.get('/addProduct', (req, res) => {
         });
     } else {
         res.render('addProduct', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
+router.get('/findProduct', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('findProduct', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('findProduct', {
             login: false,
             alert: false,
         });
@@ -181,6 +219,15 @@ router.get('/updateProduct', (req, res) => {
     }
 });
 
+router.get('/findProduct', (req, res) => {
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('findProduct', { alert: false, login: true });
+    } else {
+        res.render('findProduct', { alert: false, login: false });
+    }
+});
+
 router.get('/baned-account', (req, res) => {
     if (req.session.loggedin) {
         res.render('baned-account', { alert: false, login: true });
@@ -192,17 +239,21 @@ router.get('/baned-account', (req, res) => {
 router.post(
     '/register',
     checkEmptyUsername,
-    checkEmptyEmail,
-    checkEmptyPass,
+    checkEmptyEmailRegister,
+    checkEmptyPassRegister,
     checkEmptyConfirmPass,
     checkEmailDB,
+    isEmailRegister,
+    checkPass,
+    checkConfirmPass,
+    confirmPass,
     registerDB
 );
-router.post('/login', authController.login);
+router.post('/login',isEmail, authController.login);
 router.post('/forgot-pass', authController.sendNewPassToEmail);
 router.post(
     '/contact',
-    isEmailContact,
+    isEmailContact,checkEmptyName,
     checkEmptySubjet,
     checkEmptyProblem,
     contact
@@ -212,6 +263,8 @@ router.post(
     checkEmptySku,
     checkProductOnDb,
     checkEmptyName,
+    checkEmptyGame,
+    checkEmptyLevel,
     checkEmptyDescription,
     checkEmptyPrice,
     isSkus,
@@ -224,6 +277,8 @@ router.post(
     checkEmptySkuUpdate,
     checkProductExist,
     checkEmptyNameUpdate,
+    checkEmptyGameUpdate,
+    checkEmptyLevelUpdate,
     checkEmptyDescriptionUpdate,
     checkEmptyPriceUpdate,
     isSkuUpdate,
@@ -232,7 +287,8 @@ router.post(
 );
 
 router.post(
-    '/admin/find-product',
+    '/findProduct',
+    checkProductExistSeach,
     findProductById2
 );
 

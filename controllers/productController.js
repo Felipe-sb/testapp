@@ -1,6 +1,7 @@
 const con = require('../db/db');
 exports.getProducts = (req, res) => {
     con.query('SELECT * FROM products', (error, result) => {
+
         if (error) throw error;
         console.log(result)
         if (result.length !== 0) {
@@ -17,6 +18,12 @@ exports.getProducts = (req, res) => {
                 })
             }
 
+        }  else {
+            res.render('products', {
+                data: null,
+                login: true,
+                username:req.session.username
+            })
         }
     });
 };
@@ -149,9 +156,9 @@ exports.verifiedProduct = (req, res) => {
 };
 
 exports.addProduct = (req, res) => {
-    const { sku, name, description, price } = req.body;
+    const { sku, name, game, level, description, price } = req.body;
     con.query(
-        `INSERT INTO products VALUES (${sku},'${name}','${description}',${price},'0','0')`,
+        `INSERT INTO products VALUES (${sku},'${name}','${game}','${level}','${description}',${price},'0','0')`,
         (error, result) => {
             if (error) throw error;
             res.render('addProduct', {
@@ -169,9 +176,9 @@ exports.addProduct = (req, res) => {
 };
 
 exports.updateProductBD = (req, res) => {
-    const { sku, name, description, price } = req.body;
+    const { sku, name, game, level, description, price } = req.body;
     con.query(
-        `UPDATE products SET name='${name}',description='${description}',price= ${price},partialDelete= '0',verified= '0' WHERE sku=${sku} `,
+        `UPDATE products SET name='${name}',game='${game}',level='${level}',description='${description}',price= ${price},partialDelete= '0',verified= '0' WHERE sku=${sku} `,
         (error, result) => {
             if (error) throw error;
             res.render('updateProduct', {

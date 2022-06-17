@@ -16,46 +16,47 @@
     <body>
         <% if (login) { %>
         <%-include('header',{login:login,username:username});-%> <% }else{ %>
-        <%-include('header',{login:login}); -%> <%}%> <%data.forEach(packet =>{%>
-        <a
-            href="/products/<%=packet.sku%> "
-            style="text-decoration: none; color: #000"
-        >
-        </a>
-
-        <div
-            class="row container-fluid"
-            style="margin-left: 8px; margin-top: 7px; margin-bottom: 7px"
-        >
-
-            
+        <%-include('header',{login:login}); -%> <%}%> 
         
-        <div class="m-0 row justify-content-center">
-                    <div class="col-sm-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><%=packet.name%></h5>
-                                <p class="card-text">
-                                    <%=packet.description%>
-                                </p>
-                                <p class "card-text">
-                                    $<%=packet.price%>
-                                </p>
-                                
-                                <a href="products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>
-                            </div>
-                        </div>
-                    </div>
-                    
+       
+        <div class="container">
+            <div class="row">
+                
+        <% if (data) { %>
+            <%data.forEach(packet =>{%>
+      
+                <div class="col-4 mt-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">
+                              <a
+                              href="/products/<%=packet.sku%> "
+                              style="text-decoration: none; color: #000"
+                              >
+                              <%=packet.name%>
+                              </a> 
+                          </h5>
+                          <p class="card-text">
+                             
+                              <%=packet.description%> 
+                          </p>
+                          <p class "card-text">
+                              $<%=packet.price%>
+                          </p>
+                          
+                          <a href="/products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>
+                      </div>
+                  </div>
                 </div>
-            
-            
- 
-        </div>
-
+          
+          <% }) %> 
+        <% } %> 
 
         
-        <% }) %> <%- include ('footer'); -%>
+            </div>
+        </div>
+        
+        <%- include ('footer'); -%>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
