@@ -36,12 +36,18 @@
                               <%=packet.name%>
                               </a> 
                           </h5>
+                          <p class="card-text">                
+                            Juego: <%=packet.game%> 
+                        </p>
+                        <p class="card-text"> 
+                            Nivel: <%=packet.level%> 
+                        </p>
                           <p class="card-text">
                              
-                              <%=packet.description%> 
+                              Caracteristicas: <%=packet.description%> 
                           </p>
                           <p class "card-text">
-                              $<%=packet.price%>
+                              Precio: $<%=packet.price%>
                           </p>
                           
                           <a href="/products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>

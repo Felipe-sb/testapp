@@ -36,11 +36,13 @@ exports.findProductById2 = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game, 
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -51,6 +53,8 @@ exports.findProductById2 = (req, res) => {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -71,11 +75,13 @@ exports.findProductById = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -86,6 +92,8 @@ exports.findProductById = (req, res) => {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -106,11 +114,13 @@ exports.verifiedProductById = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`verified-product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -121,6 +131,8 @@ exports.verifiedProductById = (req, res) => {
                 res.render(`verified-product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,

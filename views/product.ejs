@@ -16,13 +16,40 @@
     <body>
         <% if (login) { %> <%-include('header',{login:login,username:username});
         -%> <% }else{ %> <%- include('header',{login:login}); -%> <%}%>
-        <h1><%=sku %></h1>
-        <h1><%=description%></h1>
+        <div class="col-4 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a
+                        href="/products/<%=sku%> "
+                        style="text-decoration: none; color: #000"
+                        >
+                        <%=name%>
+                        </a> 
+                    </h5>
+                    <p class="card-text">                
+                      Juego: <%=game%> 
+                  </p>
+                  <p class="card-text"> 
+                      Nivel: <%=level%> 
+                  </p>
+                    <p class="card-text">
+                       
+                        Caracteristicas: <%=description%> 
+                    </p>
+                    <p class "card-text">
+                        Precio: $<%=price%>
+                    </p>
 
-        <form method="post" action="/add-to-cart">
-            <input name="sku" type="hidden" value="<%=sku%>" />
-            <button class="btn btn-success">Agregar Al Carrito</button>
-        </form>
+                    <form method="post" action="/add-to-cart">
+                        <input name="sku" type="hidden" value="<%=sku%>" />
+                        <button class="btn btn-success">Agregar Al Carrito</button>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+
+        
         
 
         
