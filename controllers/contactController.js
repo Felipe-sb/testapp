@@ -22,7 +22,7 @@ exports.contact = async (req, res) => {
             alertIcon: 'success',
             showConfirmButton: true,
             timer: false,
-            ruta: 'contact',
+            ruta: '/contact',
         });
     } catch (error) {
         console.log(error);

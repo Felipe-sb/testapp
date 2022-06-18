@@ -51,6 +51,8 @@ exports.checkEmptyName = (req, res, next) => {
     }
 }
 
+
+
 exports.checkEmptyGame = (req, res, next) => {
     const { game } = req.body
     const gameRegex= /^(?!\s*$).+/
@@ -83,6 +85,63 @@ exports.checkEmptyNameUpdate = (req, res, next) => {
             showConfirmButton: true,
             timer: false,
             ruta: 'updateProduct',
+        })
+    } else {
+        next()
+    }
+}
+
+exports.checkEmptySubject = (req, res, next) => {
+    const { subject } = req.body
+    const subjectRegex= /^(?!\s*$).+/
+    if (!subjectRegex.test(subject)){
+        res.render('contact', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'Ooooooops',
+            alertMessage: 'Por Favor Ingrese El Nombre',
+            alertIcon: 'warning',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'contact',
+        })
+    } else {
+        next()
+    }
+}
+
+exports.checkEmptyText = (req, res, next) => {
+    const { text } = req.body
+    const textRegex= /^(?!\s*$).+/
+    if (!textRegex.test(text)){
+        res.render('contact', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'Ooooooops',
+            alertMessage: 'Por Favor Ingrese El Nombre',
+            alertIcon: 'warning',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'contact',
+        })
+    } else {
+        next()
+    }
+}
+
+exports.checkEmptyNameContact = (req, res, next) => {
+    const { name } = req.body
+    const nameRegex= /^(?!\s*$).+/
+    if (!nameRegex.test(name)){
+        res.render('contact', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'Ooooooops',
+            alertMessage: 'Por Favor Ingrese El Nombre',
+            alertIcon: 'warning',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'contact',
         })
     } else {
         next()

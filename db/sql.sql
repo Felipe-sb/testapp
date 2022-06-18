@@ -14,7 +14,7 @@ CREATE TABLE `paytoowin`.`products` (
   `name` VARCHAR(45) NOT NULL,
   `game` VARCHAR(45) NOT NULL,
   `level` INT NOT NULL,
-  `description` VARCHAR(45) NOT NULL,
+  `description` TEXT NOT NULL,
   `price` VARCHAR(45) NOT NULL,
   `partialDelete` TINYINT NOT NULL,
   `verified` BOOLEAN NOT NULL,

@@ -38,6 +38,9 @@ const {
     checkEmptyGameUpdate,
     checkEmptyLevelUpdate,
     checkEmptyLevel,
+    checkEmptyNameContact,
+    checkEmptySubject,
+    checkEmptyText,
 } = require('../middlewares/products/emptyField');
 const {
     checkProductOnDb,
@@ -251,11 +254,13 @@ router.post(
 );
 router.post('/login',isEmail, authController.login);
 router.post('/forgot-pass', authController.sendNewPassToEmail);
+
 router.post(
     '/contact',
-    isEmailContact,checkEmptyName,
-    checkEmptySubjet,
-    checkEmptyProblem,
+    isEmailContact,
+    checkEmptyNameContact,
+    checkEmptySubject,
+    checkEmptyText,
     contact
 );
 router.post(
