@@ -27,6 +27,37 @@ exports.getProducts = (req, res) => {
         }
     });
 };
+
+
+exports.getProductsCart = (req, res) => {
+    con.query('SELECT * FROM cart', (error, result) => {
+
+        if (error) throw error;
+        console.log(result)
+        if (result.length !== 0) {
+            if (req.session.loggedin) {
+                res.render('carrito-compras', {
+                    data: result,
+                    login: true,
+                    username:req.session.username
+                })
+            } else {
+                res.render('carrito-compras', {
+                    data: result,
+                    login: false
+                })
+            }
+
+        }  else {
+            res.render('carrito-compras', {
+                data: null,
+                login: true,
+                username:req.session.username
+            })
+        }
+    });
+};
+
 exports.findProductById2 = (req, res) => {
     const { sku } = req.body;
     console.log(sku);
@@ -67,6 +98,45 @@ exports.findProductById2 = (req, res) => {
 };
 
 exports.findProductById = (req, res) => {
+    const { sku } = req.params;
+    console.log(sku);
+    con.query(`SELECT * FROM products WHERE sku=${sku}`, (error, result) => {
+        if (error) throw error;
+        console.log(result);
+        if (result.length !== 0) {
+            const [data] = result;
+            console.log(data);
+            const { sku, name, game, level, description, price, partialDelete } = data;
+            if (req.session.loggedin) {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    game: game,
+                    level: level,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: true,
+                    username:req.session.username
+                });
+            } else {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    game: game,
+                    level: level,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: false
+                });
+            }
+
+        }
+    });
+};
+
+exports.findProductByIdCart = (req, res) => {
     const { sku } = req.params;
     console.log(sku);
     con.query(`SELECT * FROM products WHERE sku=${sku}`, (error, result) => {
@@ -165,6 +235,25 @@ exports.verifiedProduct = (req, res) => {
 
         }
     });
+};
+
+exports.deleteCart = (req, res) => {
+    con.query(
+        `DELETE FROM cart `,
+        (error, result) => {
+            if (error) throw error;
+            res.render('carrito-compras', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'EXITO',
+                alertMessage: 'Carrito Vaciado Exitosamente',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'carrito-compras',
+            })
+        }
+    );
 };
 
 exports.addProduct = (req, res) => {

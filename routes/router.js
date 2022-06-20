@@ -24,6 +24,8 @@ const {
     verifiedProduct,
     updateProductBD,
     findProductById2,
+    getProductsCart,
+    deleteCart,
 } = require('../controllers/productController');
 const {
     checkEmptySku,
@@ -140,6 +142,9 @@ router.get('/nosotros', (req, res) => {
 
 router.get('/products', getProducts);
 router.get('/products/:sku', findProductById);
+
+router.get('/carrito-compras', getProductsCart);
+router.get('/carrito-compras/:id', findProductById);
 
 router.get('/verified-products/:sku', verifiedProductById);
 router.get('/verified-products', verifiedProduct);
@@ -263,6 +268,13 @@ router.post(
     checkEmptyText,
     contact
 );
+
+router.post(
+    '/carrito-compras',
+    deleteCart
+    
+);
+
 router.post(
     '/addProduct',
     checkEmptySku,
