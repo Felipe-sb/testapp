@@ -10,6 +10,7 @@
             integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
             crossorigin="anonymous"
         />
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <title><%=name%></title>
     </head>
    <center>
@@ -43,13 +44,33 @@
 
                     <form method="post" action="/add-to-cart">
                         <input name="sku" type="hidden" value="<%=sku%>" />
-                        <button class="btn btn-success">Agregar Al Carrito</button>
+                        <div class="form-floating">
+                        <button
+                            onclick="mostrar()"
+                            class="w-100 btn btn-lg btn-primary"
+                            type="submit"
+                            value="Enviar"
+                        >
+                            Agregar Al Carrito
+                        </button>
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="_next"
+                        value="https://http://localhost:5000/"
+                    />
+                    <input type="hidden" name="_captcha" value="false" />
                     </form>
                     </div>
                     </div>
                     </div>
 
-        
+                    <script type="text/javascript">
+                        function mostrar() {
+                            swal('Enviado!', 'Espera por nuestra respuesta', 'success');
+                        }
+                    </script>
         
 
         
