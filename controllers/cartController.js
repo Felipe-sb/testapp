@@ -23,7 +23,7 @@ exports.addProductToCart = (req, res) => {
                 console.log(newDataString)
                 con.query(`UPDATE cart SET products_sku ='${newDataString}' WHERE users_id='${idUser}'`,(error,result)=>{
                     if(error) throw error;
-                    res.send('Producto Agregado')
+                    res.redirect('/carrito-compras')
                 })
             } else {
                 const id = uuidv4();
@@ -35,7 +35,7 @@ exports.addProductToCart = (req, res) => {
                     (error, result) => {
                         if (error) throw error;
                         console.log(result);
-                        res.send('PRODUCTO AGREGADO');
+                        res.redirect('/carrito-compras')
                     }
                 );
             }

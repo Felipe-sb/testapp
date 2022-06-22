@@ -33,27 +33,35 @@ exports.getProductsCart = (req, res) => {
     con.query('SELECT * FROM cart', (error, result) => {
 
         if (error) throw error;
-        console.log(result)
+        let data = result.map(product => {
+            if (product.users_id === req.session.idUser) {
+                return product
+            }
+        })
+        .filter(product => product !== undefined)
+        console.log(data);
         if (result.length !== 0) {
             if (req.session.loggedin) {
                 res.render('carrito-compras', {
-                    data: result,
+                    data,
                     login: true,
                     username:req.session.username
                 })
+                return
             } else {
                 res.render('carrito-compras', {
-                    data: result,
+                    data: data,
                     login: false
                 })
+                return
             }
-
         }  else {
             res.render('carrito-compras', {
                 data: null,
                 login: true,
                 username:req.session.username
             })
+            return
         }
     });
 };
