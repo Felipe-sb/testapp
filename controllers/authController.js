@@ -47,12 +47,12 @@ exports.register = async (req, res) => {
                                         if (err) throw err;
                                         try {
                                             console.log(result);
-                                            await transporter.sendMail({
-                                                from: '"payTooWin" <paytoowin.noreply@gmail.com>',
-                                                to: `${email}`,
-                                                subject: 'account created',
-                                                text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
-                                            });
+                                            // await transporter.sendMail({
+                                            //     from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                                            //     to: `${email}`,
+                                            //     subject: 'account created',
+                                            //     text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
+                                            // });
                                             res.render('register', {
                                                 alert: true,
                                                 alertTitle:
