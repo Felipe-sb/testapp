@@ -27,6 +27,37 @@ exports.getProducts = (req, res) => {
         }
     });
 };
+
+
+exports.getProductsCart = (req, res) => {
+    con.query('SELECT * FROM cart', (error, result) => {
+
+        if (error) throw error;
+        console.log(result)
+        if (result.length !== 0) {
+            if (req.session.loggedin) {
+                res.render('carrito-compras', {
+                    data: result,
+                    login: true,
+                    username:req.session.username
+                })
+            } else {
+                res.render('carrito-compras', {
+                    data: result,
+                    login: false
+                })
+            }
+
+        }  else {
+            res.render('carrito-compras', {
+                data: null,
+                login: true,
+                username:req.session.username
+            })
+        }
+    });
+};
+
 exports.findProductById2 = (req, res) => {
     const { sku } = req.body;
     console.log(sku);
@@ -36,11 +67,13 @@ exports.findProductById2 = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game, 
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -51,6 +84,8 @@ exports.findProductById2 = (req, res) => {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -71,11 +106,13 @@ exports.findProductById = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -86,6 +123,47 @@ exports.findProductById = (req, res) => {
                 res.render(`product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: false
+                });
+            }
+
+        }
+    });
+};
+
+exports.findProductByIdCart = (req, res) => {
+    const { sku } = req.params;
+    console.log(sku);
+    con.query(`SELECT * FROM products WHERE sku=${sku}`, (error, result) => {
+        if (error) throw error;
+        console.log(result);
+        if (result.length !== 0) {
+            const [data] = result;
+            console.log(data);
+            const { sku, name, game, level, description, price, partialDelete } = data;
+            if (req.session.loggedin) {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    game: game,
+                    level: level,
+                    description: description,
+                    price: price,
+                    partialDelete: partialDelete,
+                    login: true,
+                    username:req.session.username
+                });
+            } else {
+                res.render(`product`, {
+                    sku: sku,
+                    name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -106,11 +184,13 @@ exports.verifiedProductById = (req, res) => {
         if (result.length !== 0) {
             const [data] = result;
             console.log(data);
-            const { sku, name, description, price, partialDelete } = data;
+            const { sku, name, game, level, description, price, partialDelete } = data;
             if (req.session.loggedin) {
                 res.render(`verified-product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -121,6 +201,8 @@ exports.verifiedProductById = (req, res) => {
                 res.render(`verified-product`, {
                     sku: sku,
                     name: name,
+                    game: game,
+                    level: level,
                     description: description,
                     price: price,
                     partialDelete: partialDelete,
@@ -155,10 +237,29 @@ exports.verifiedProduct = (req, res) => {
     });
 };
 
-exports.addProduct = (req, res) => {
-    const { sku, name, description, price } = req.body;
+exports.deleteCart = (req, res) => {
     con.query(
-        `INSERT INTO products VALUES (${sku},'${name}','${description}',${price},'0','0')`,
+        `DELETE FROM cart `,
+        (error, result) => {
+            if (error) throw error;
+            res.render('carrito-compras', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'EXITO',
+                alertMessage: 'Carrito Vaciado Exitosamente',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'carrito-compras',
+            })
+        }
+    );
+};
+
+exports.addProduct = (req, res) => {
+    const { sku, name, game, level, description, price } = req.body;
+    con.query(
+        `INSERT INTO products VALUES (${sku},'${name}','${game}','${level}','${description}',${price},'0','0')`,
         (error, result) => {
             if (error) throw error;
             res.render('addProduct', {
@@ -169,16 +270,16 @@ exports.addProduct = (req, res) => {
                 alertIcon: 'success',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'admin/add-product',
+                ruta: 'addProduct',
             })
         }
     );
 };
 
 exports.updateProductBD = (req, res) => {
-    const { sku, name, description, price } = req.body;
+    const { sku, name, game, level, description, price } = req.body;
     con.query(
-        `UPDATE products SET name='${name}',description='${description}',price= ${price},partialDelete= '0',verified= '0' WHERE sku=${sku} `,
+        `UPDATE products SET name='${name}',game='${game}',level='${level}',description='${description}',price= ${price},partialDelete= '0',verified= '0' WHERE sku=${sku} `,
         (error, result) => {
             if (error) throw error;
             res.render('updateProduct', {

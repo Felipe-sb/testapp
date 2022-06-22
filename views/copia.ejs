@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        
+<% if (data) { %>
+    <%data.forEach(packet =>{%>
+
+        <div class="col-4 mt-4">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">
+                      <a
+                      href=" "
+                      style="text-decoration: none; color: #000"
+                      >
+                      <%=packet.products_sku%>
+                      </a> 
+                  </h5><br>
+                 
+                  
+                  <button class="w-100 btn btn-lg btn-danger" type="submit">
+                    Vaciar Carrito
+                </button>
+              </div>
+          </div>
+        </div>
+  
+  <% }) %> 
+<% } %> 
+
+
+    </div>
+</div>

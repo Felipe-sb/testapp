@@ -36,7 +36,7 @@
             <%-include('header',{login:login}); -%> 
         <%}%>
         <main class="form-signin">
-            <form id="updateform" action="/admin/update-product" method="POST">
+            <form id="updateform" action="updateProduct" method="POST">
                 <img
                     class="mb-4"
                     src="img/logo.svg"
@@ -71,9 +71,29 @@
                         type="text"
                         class="form-control"
                         id="floatingPassword"
-                        name="description"
-                        placeholder="Descripción"
+                        name="game"
+                        placeholder="Juego"
                     />
+                    <label for="floatingPassword">Juego</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="floatingPassword"
+                        name="level"
+                        placeholder="Nivel"
+                    />
+                    <label for="floatingPassword">Nivel</label>
+                </div>
+                <div class="form-floating">
+                    <textarea
+                            class="form-control"
+                            id="floatingInput"
+                            name="description"
+                            cols="15"
+                            rows="20"
+                        ></textarea>
                     <label for="floatingPassword">Descripción</label>
                 </div>
                 <div class="form-floating">

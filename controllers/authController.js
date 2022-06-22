@@ -183,19 +183,19 @@ exports.login = async (req, res) => {
     }
 };
 exports.sendNewPassToEmail = async (req,res,)=>{
-    const {email} = req.body;
-    console.log(email);
-    if (!email) {
-        res.render('forgot-pass', {
-            alert: true,
-            alertTitle: 'Oooops...',
-            alertMessage: 'No puede existir un campo vacio',
-            alertIcon: 'error',
-            showConfirmButton: true,
-            timer: false,
-            ruta: 'login',
-            login:req.session.loggedin
-        });
+    const {email} = req.body
+    const emailSendRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    if (!emailSendRegex.test(email)) {
+        res.render('forgot-pass',{
+            login:req.session.loggedin,
+            alert:true,
+            alertTitle:'Ooooops',
+            alertMessage:'Por favor ingresa un corrreo electronico valido',
+            alertIcon:'warning',
+            showConfirmButton:true,
+            timer:false,
+            ruta:'forgot-pass'
+        })
     }else{
         con.query(`SELECT * FROM users WHERE email='${email}'`,async (err,result)=>{
             if (result.length !== 0) {

@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Products</title>
+        <title>Catalogo</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -36,15 +36,21 @@
                               <%=packet.name%>
                               </a> 
                           </h5>
+                          <p class="card-text">                
+                            Juego: <%=packet.game%> 
+                        </p>
+                        <p class="card-text"> 
+                            Nivel: <%=packet.level%> 
+                        </p>
                           <p class="card-text">
                              
-                              <%=packet.description%> 
+                              Caracteristicas: <%=packet.description%> 
                           </p>
                           <p class "card-text">
-                              $<%=packet.price%>
+                              Precio: $<%=packet.price%>
                           </p>
                           
-                          <a href="#/" class="btn btn-primary">Comprar</a>
+                          <a href="/products/<%=packet.sku%>" class="btn btn-primary">Comprar</a>
                       </div>
                   </div>
                 </div>
