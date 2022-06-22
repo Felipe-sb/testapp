@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const con = require('./db');
-const transporter = require('../helpers/transporter');
+// const transporter = require('../helpers/transporter');
 const bcryptjs = require('bcryptjs');
 
 exports.registerDB=async(req,res)=>{
@@ -14,12 +14,12 @@ exports.registerDB=async(req,res)=>{
             console.log(result)
             try {
                 console.log(result);
-                await transporter.sendMail({
-                    from: '"payTooWin" <paytoowin.noreply@gmail.com>',
-                    to: `${email}`,
-                    subject: 'account created',
-                    text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
-                });
+                // await transporter.sendMail({
+                //     from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                //     to: `${email}`,
+                //     subject: 'account created',
+                //     text: `Bienvenido a payTooWin ${username} ahora disfrutaras mucho más de tus juegos preferidos comprando tu primera cuenta`,
+                // });
                 res.render('register', {
                     alert: true,
                     alertTitle:

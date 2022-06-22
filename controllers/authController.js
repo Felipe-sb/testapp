@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const con = require('../db/db');
 const { v4: uuidv4 } = require('uuid');
-const transporter = require('../helpers/transporter');
+// const transporter = require('../helpers/transporter');
 const generateRandomPass = require('../helpers/generateRandomPass');
 exports.register = async (req, res) => {
     try {

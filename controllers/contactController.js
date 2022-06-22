@@ -1,4 +1,4 @@
-const transporter = require('../helpers/transporter');
+// const transporter = require('../helpers/transporter');
 
 exports.contact = async (req, res) => {
     try {
@@ -9,12 +9,12 @@ exports.contact = async (req, res) => {
             subject: subject,
             text: text,
         });
-        await transporter.sendMail({
-            from: `"paytoowin" <${process.env.EMAIL}>`,
-            to: `${email}`,
-            subject: 'Contacto',
-            text: 'En unos instantes nuestro equipo se contactara contigo',
-        });
+        // await transporter.sendMail({
+        //     from: `"paytoowin" <${process.env.EMAIL}>`,
+        //     to: `${email}`,
+        //     subject: 'Contacto',
+        //     text: 'En unos instantes nuestro equipo se contactara contigo',
+        // });
         res.render('contact', {
             alert: true,
             alertTitle: 'Operacion Exitosa!!!',
