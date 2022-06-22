@@ -13,7 +13,7 @@ app.use(express.json());
 // app.use(cookieParser())
 app.use(
     session({
-        secret: 'secret key',
+        secret: 'paytoowin',
         resave: false,
         saveUninitialized: true,
     })
