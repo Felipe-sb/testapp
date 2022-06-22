@@ -25,49 +25,54 @@
     </head>
     <body class="text-center">
         <% if (!login) { %> <%- include('header',{login:login}); -%>
-            <main class="form-signin">
-                <form id="forgotPassForm" action="/forgot-pass" method="POST" >
-                    <img
-                        class="mb-4"
-                        src="img/logo.svg"
-                        alt=""
-                        width="80"
-                        height="67"
+        <main class="form-signin">
+            <form id="forgotPassForm" action="/forgot-pass" method="POST">
+                <img
+                    class="mb-4"
+                    src="img/logo.svg"
+                    alt=""
+                    width="80"
+                    height="67"
+                />
+                <h1 class="h3 mb-3 fw-normal">Recuperar contraseña</h1>
+                <div class="form-floating">
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="floatingInput"
+                        name="email"
+                        placeholder="email"
                     />
-                    <h1 class="h3 mb-3 fw-normal">Recuperar contraseña</h1>
-                    <div class="form-floating">
-                        <input
-                            type="email"
-                            class="form-control"
-                            id="floatingInput"
-                            name="email"
-                            placeholder="email"
-                        />
-                        <label for="floatingInput">Correo electronico</label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">
-                        Enviar Correo
-                    </button>
-                    <p>Si ya tienes una cuenta haz <a href="/login">click aqui</a></p>
-                </form>
-            </main>
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <% if (alert) { %>
-                <script>
-                    Swal.fire({
-                        title:'<%=alertTitle%>',
-                        text:'<%=alertMessage%>',
-                        icon:'<%=alertIcon%>',
-                        showConfirmButton:<%=showConfirmButton%>,
-                        timer:<%=timer%>
-                    }).then(()=>{
-                        window.location='/<%=ruta%>'
-                    })
-                </script>
-            <% } %>
-        <% } else { %>
-            <script>window.location='/'</script>
+                    <label for="floatingInput">Correo electronico</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
+                    Enviar Correo
+                </button>
+                <p>
+                    Si ya tienes una cuenta haz <a href="/login">click aqui</a>
+                </p>
+            </form>
+        </main>
+
+        <%- include ('footer'); -%>
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <% if (alert) { %>
+        <script>
+            Swal.fire({
+                title:'<%=alertTitle%>',
+                text:'<%=alertMessage%>',
+                icon:'<%=alertIcon%>',
+                showConfirmButton:<%=showConfirmButton%>,
+                timer:<%=timer%>
+            }).then(()=>{
+                window.location='/<%=ruta%>'
+            })
+        </script>
+        <% } %> <% } else { %>
+        <script>
+            window.location = '/';
+        </script>
         <%}%>
-        
     </body>
 </html>
