@@ -223,6 +223,8 @@ exports.checkEmptyPrice = (req, res, next) => {
     }
 }
 
+
+
 exports.checkEmptyLevel = (req, res, next) => {
     const { level } = req.body
     if (!level) {

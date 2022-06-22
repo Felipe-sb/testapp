@@ -54,6 +54,7 @@ const {
     isPrice,
     isSkuUpdate,
     isPriceUpdate,
+    isLevel,
 } = require('../middlewares/products/isSku');
 const { isEmailContact, isEmail, isEmailRegister, checkPass, confirmPass, checkConfirmPass } = require('../middlewares/auth/isEmail');
 const { addProductToCart } = require('../controllers/cartController');
@@ -286,6 +287,7 @@ router.post(
     checkEmptyPrice,
     isSkus,
     isPrice,
+    isLevel,
     addProduct
 );
 
