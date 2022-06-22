@@ -134,12 +134,12 @@ exports.login = async (req, res) => {
                             req.session.email = data.email;
                             req.session.idUser = data.id;
                             console.log(req.session);
-                            await transporter.sendMail({
-                                from: '"payTooWin" <paytoowin.noreply@gmail.com>',
-                                to: `${data.email}`,
-                                subject: 'Nuevo inicio de sesion',
-                                text: `${data.username} detectamos que iniciaste sesion avisanos si no fuistes tu`,
-                            });
+                            // await transporter.sendMail({
+                            //     from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                            //     to: `${data.email}`,
+                            //     subject: 'Nuevo inicio de sesion',
+                            //     text: `${data.username} detectamos que iniciaste sesion avisanos si no fuistes tu`,
+                            // });
                             res.render('login', {
                                 alert: true,
                                 alertTitle: 'Inicio de sesion exitoso',
@@ -206,12 +206,12 @@ exports.sendNewPassToEmail = async (req,res,)=>{
                 con.query(`UPDATE users SET password='${hashPass}' WHERE email='${email}'`,async(err,result)=>{
                     if(err) throw err;
                     console.log(result);
-                    await transporter.sendMail({
-                        from: '"payTooWin" <paytoowin.noreply@gmail.com>',
-                        to: `${email}`,
-                        subject: 'Cambiar contraseña',
-                        text: `${username} tu nueva contraseña es ${newRandomPass}`,
-                    });
+                    // await transporter.sendMail({
+                    //     from: '"payTooWin" <paytoowin.noreply@gmail.com>',
+                    //     to: `${email}`,
+                    //     subject: 'Cambiar contraseña',
+                    //     text: `${username} tu nueva contraseña es ${newRandomPass}`,
+                    // });
                     res.render('forgot-pass', {
                         alert: true,
                         alertTitle: 'Operacion Exitosa',

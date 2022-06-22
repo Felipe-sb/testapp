@@ -13,7 +13,6 @@ exports.addProductToCart = (req, res) => {
         (error, result) => {
             if (error) throw error;
             console.log(result);
-
             if (result.length !== 0) {
                 const data=result[0].products_sku.split(',')
                 console.log(data)
@@ -25,6 +24,7 @@ exports.addProductToCart = (req, res) => {
                     if(error) throw error;
                     res.redirect('/carrito-compras')
                 })
+                return
             } else {
                 const id = uuidv4();
                 const products = { sku };
