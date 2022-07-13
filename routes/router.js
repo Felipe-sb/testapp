@@ -124,6 +124,74 @@ router.get('/contact', (req, res) => {
     }
 });
 
+router.get('/perfil-usuario', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('perfil-usuario', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('perfil-usuario', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
+router.get('/perfil', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('perfil', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('perfil', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
+router.get('/medios-pago', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('medios-pago', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('medios-pago', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
+router.get('/pedidos', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('pedidos', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('pedidos', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
 router.get('/nosotros', (req, res) => {
     if (req.session.loggedin) {
         res.render('nosotros', {
