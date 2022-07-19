@@ -26,6 +26,7 @@ const {
     findProductById2,
     getProductsCart,
     deleteCart,
+    deleteProductBD,
 } = require('../controllers/productController');
 const {
     checkEmptySku,
@@ -43,11 +44,13 @@ const {
     checkEmptyNameContact,
     checkEmptySubject,
     checkEmptyText,
+    checkEmptySkuDelete,
 } = require('../middlewares/products/emptyField');
 const {
     checkProductOnDb,
     checkProductExist,
     checkProductExistSeach,
+    checkProduct,
 } = require('../middlewares/products/checkProductOnDB');
 const {
     isSkus,
@@ -55,6 +58,7 @@ const {
     isSkuUpdate,
     isPriceUpdate,
     isLevel,
+    isSkuDelete,
 } = require('../middlewares/products/isSku');
 const { isEmailContact, isEmail, isEmailRegister, checkPass, confirmPass, checkConfirmPass } = require('../middlewares/auth/isEmail');
 const { addProductToCart } = require('../controllers/cartController');
@@ -118,6 +122,23 @@ router.get('/contact', (req, res) => {
         });
     } else {
         res.render('contact', {
+            login: false,
+            alert: false,
+        });
+    }
+});
+
+router.get('/admin/delete-product', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('deleteProduct', {
+            login: true,
+            id: req.session.idUser,
+            username: req.session.username,
+            email: req.session.email,
+            alert: false,
+        });
+    } else {
+        res.render('deleteProduct', {
             login: false,
             alert: false,
         });
@@ -206,6 +227,15 @@ router.get('/nosotros', (req, res) => {
             login: false,
             alert: false,
         });
+    }
+});
+
+router.get('/deleteProduct', (req, res) => {
+    console.log(req.session);
+    if (req.session.loggedin) {
+        res.render('deleteProduct', { alert: false, login: true });
+    } else {
+        res.render('deleteProduct', { alert: false, login: false });
     }
 });
 
@@ -371,6 +401,15 @@ router.post(
     isSkuUpdate,
     isPriceUpdate,
     updateProductBD
+);
+
+router.post(
+    '/deleteProduct',
+    checkProduct,
+    isSkuDelete,
+    checkEmptySkuDelete,
+    deleteProductBD
+    
 );
 
 router.post(

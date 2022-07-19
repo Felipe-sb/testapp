@@ -41,6 +41,27 @@ exports.checkProductExist = (req, res, next) => {
     });
 };
 
+exports.checkProduct = (req, res, next) => {
+    const { sku } = req.body;
+    con.query(`SELECT sku FROM products WHERE sku=${sku}`, (error, result) => {
+        if (error) throw error;
+        if (result.length === 0) {
+            res.render('deleteProduct', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'Ooooooops',
+                alertMessage: 'El Producto No Existe',
+                alertIcon: 'warning',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'deleteProduct',
+            });
+        } else {
+            next();
+        }
+    });
+};
+
 exports.checkProductExistSeach = (req, res, next) => {
     const { sku } = req.body;
     con.query(`SELECT sku FROM products WHERE sku=${sku}`, (error, result) => {

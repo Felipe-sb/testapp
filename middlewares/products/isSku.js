@@ -30,6 +30,37 @@ exports.isSkus = (req, res, next) => {
     }
 };
 
+exports.isSkuDelete = (req, res, next) => {
+    const { sku } = req.body;
+    const skuint = parseInt(sku);
+    if (isNaN(skuint)) {
+        res.render('deleteProduct', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'Ooooops',
+            alertMessage: 'El SKU debe ser numerico',
+            alertIcon: 'alert',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'deleteProduct',
+        });
+    } else {
+        if (skuint <= 0) {
+            res.render('deleteProduct', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'Ooooops',
+                alertMessage: 'El SKU debe ser mayor a 0',
+                alertIcon: 'alert',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'deleteProduct',
+            });
+        } else {
+            next();
+        }
+    }
+};
 
 exports.isLevel = (req, res, next) => {
     const { level } = req.body;

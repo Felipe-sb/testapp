@@ -304,6 +304,26 @@ exports.updateProductBD = (req, res) => {
     );
 };
 
+exports.deleteProductBD = (req, res) => {
+    const {sku} = req.body;
+    con.query(
+        `DELETE FROM products WHERE sku=${sku} `,
+        (error, result) => {
+            if (error) throw error;
+            res.render('deleteProduct', {
+                login: req.session.loggedin,
+                alert: true,
+                alertTitle: 'EXITO',
+                alertMessage: 'Producto Eliminado Exitosamente',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                ruta: 'deleteProduct',
+            })
+        }
+    );
+};
+
 exports.updateProduct = (req,res)=>{
     const {sku} = req.body;
     console.log(sku)

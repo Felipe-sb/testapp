@@ -51,7 +51,23 @@ exports.checkEmptyName = (req, res, next) => {
     }
 }
 
-
+exports.checkEmptySkuDelete = (req, res, next) => {
+    const { sku } = req.body
+    if (!sku) {
+        res.render('deleteProduct', {
+            login: req.session.loggedin,
+            alert: true,
+            alertTitle: 'Ooooooops',
+            alertMessage: 'Por Favor Ingrese El SKU',
+            alertIcon: 'warning',
+            showConfirmButton: true,
+            timer: false,
+            ruta: 'deleteProduct',
+        })
+    } else {
+        next()
+    }
+}
 
 exports.checkEmptyGame = (req, res, next) => {
     const { game } = req.body
